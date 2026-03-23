@@ -1,0 +1,5 @@
+name = "orkut-portfolio"
+compatibility_date = "2025-03-23"
+
+[assets]
+directory = "./out"
