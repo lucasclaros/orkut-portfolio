@@ -6,12 +6,14 @@ export interface Community {
     en: string;
   };
   members: number;
-  yearsExp: number;
+  yearsExp?: number;
   icon: string;
+  cover?: string;
   emoticon?: string;
 }
 
 export const communities: Community[] = [
+  // --- tech ---
   {
     id: "flutter",
     name: "Eu ❤ Flutter",
@@ -22,19 +24,8 @@ export const communities: Community[] = [
     members: 4200,
     yearsExp: 4,
     icon: "📱",
+    cover: "/images/communities/flutter.png",
     emoticon: "/images/emoticons/heart.png",
-  },
-  {
-    id: "kotlin",
-    name: "Kotlin/Spring Boot Devs",
-    description: {
-      "pt-BR": "quem nunca esqueceu um @Transactional que atire a primeira pedra",
-      en: "whoever never forgot a @Transactional cast the first stone",
-    },
-    members: 3100,
-    yearsExp: 2,
-    icon: "☕",
-    emoticon: "/images/emoticons/coffee.png",
   },
   {
     id: "react",
@@ -46,6 +37,7 @@ export const communities: Community[] = [
     members: 5600,
     yearsExp: 2,
     icon: "⚛️",
+    cover: "/images/communities/react.png",
     emoticon: "/images/emoticons/angry.png",
   },
   {
@@ -58,42 +50,93 @@ export const communities: Community[] = [
     members: 2800,
     yearsExp: 2,
     icon: "🐳",
+    cover: "/images/communities/docker.png",
     emoticon: "/images/emoticons/cool.png",
   },
   {
-    id: "clean-arch",
-    name: "Clean Architecture Addicts",
+    id: "kotlin",
+    name: "Kotlin/Spring Boot Devs",
     description: {
-      "pt-BR": "a gente separa camada até no bolo de aniversário",
-      en: "we separate layers even in birthday cake",
+      "pt-BR": "quem nunca esqueceu um @Transactional que atire a primeira pedra",
+      en: "whoever never forgot a @Transactional cast the first stone",
     },
-    members: 1900,
-    yearsExp: 3,
-    icon: "🏗️",
-    emoticon: "/images/emoticons/nerd.png",
+    members: 3100,
+    yearsExp: 2,
+    icon: "☕",
+    cover: "/images/communities/kotlin.png",
+    emoticon: "/images/emoticons/coffee.png",
+  },
+  // --- orkut classicas ---
+  {
+    id: "acordar-cedo",
+    name: "Eu odeio acordar cedo",
+    description: {
+      "pt-BR": "despertador é inimigo nº 1 da humanidade",
+      en: "alarm clocks are humanity's #1 enemy",
+    },
+    members: 6100000,
+    icon: "😴",
+    cover: "/images/communities/acordar-cedo.jpg",
+    emoticon: "/images/emoticons/msn-sleepy.gif",
   },
   {
-    id: "firebase",
-    name: "Firebase Crashlytics Survivors",
+    id: "segunda-feira",
+    name: "Eu odeio segunda-feira",
     description: {
-      "pt-BR": "o app crashou mas pelo menos eu sei onde",
-      en: "the app crashed but at least I know where",
+      "pt-BR": "domingo à noite já começa a depressão",
+      en: "sunday night the depression already kicks in",
     },
-    members: 1200,
-    yearsExp: 3,
-    icon: "🔥",
-    emoticon: "/images/emoticons/crying.gif",
+    members: 2893471,
+    icon: "😩",
+    cover: "/images/communities/segunda-feira.jpg",
+    emoticon: "/images/emoticons/msn-crying.gif",
   },
   {
-    id: "ai-tooling",
-    name: "AI-Assisted Development",
+    id: "5-minutinhos",
+    name: "Só mais 5 minutinhos",
     description: {
-      "pt-BR": "meu copiloto escreve código melhor que eu às 3 da manhã",
-      en: "my copilot writes better code than me at 3am",
+      "pt-BR": "5 minutinhos que viram 2 horas",
+      en: "5 minutes that turn into 2 hours",
     },
-    members: 890,
-    yearsExp: 1,
-    icon: "🤖",
-    emoticon: "/images/emoticons/surprised.png",
+    members: 2500000,
+    icon: "⏰",
+    cover: "/images/communities/5-minutinhos.jpg",
+    emoticon: "/images/emoticons/msn-wink.gif",
+  },
+  {
+    id: "geladeira",
+    name: "Eu abro a geladeira pra pensar",
+    description: {
+      "pt-BR": "abri 3 vezes e nada mudou lá dentro",
+      en: "opened it 3 times and nothing changed inside",
+    },
+    members: 1847203,
+    icon: "🧊",
+    cover: "/images/communities/geladeira.jpg",
+    emoticon: "/images/emoticons/msn-thinking.gif",
+  },
+  {
+    id: "plantao",
+    name: "Eu tenho medo do Plantão da Globo",
+    description: {
+      "pt-BR": "aquele TUM TUM TUM não é brincadeira",
+      en: "that TUM TUM TUM is no joke",
+    },
+    members: 3201487,
+    icon: "📺",
+    cover: "/images/communities/plantao.jpg",
+    emoticon: "/images/emoticons/msn-surprised.png",
+  },
+  {
+    id: "sorvete",
+    name: "Queria sorvete, mas era feijão",
+    description: {
+      "pt-BR": "a decepção de abrir o pote e encontrar feijão",
+      en: "the disappointment of opening the tub and finding beans",
+    },
+    members: 987654,
+    icon: "🍨",
+    cover: "/images/communities/sorvete.jpg",
+    emoticon: "/images/emoticons/msn-sad.png",
   },
 ];

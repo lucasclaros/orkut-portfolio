@@ -26,9 +26,15 @@ export default function ComunidadesPage() {
                     i % 2 === 0 ? "bg-[#F4F7FC]" : "bg-white"
                   }`}
                 >
-                  {/* Icon */}
-                  <div className="w-[50px] h-[50px] rounded-[3px] bg-gradient-to-br from-[#E8F0FE] to-[#C5D7F1] flex items-center justify-center shrink-0 border border-[#C3D1E0]">
-                    <span className="text-[22px]">{community.icon}</span>
+                  {/* Icon / Cover */}
+                  <div className="w-[50px] h-[50px] rounded-[3px] overflow-hidden shrink-0 border border-[#C3D1E0]">
+                    {community.cover ? (
+                      <img src={community.cover} alt={community.name} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-[#E8F0FE] to-[#C5D7F1] flex items-center justify-center">
+                        <span className="text-[22px]">{community.icon}</span>
+                      </div>
+                    )}
                   </div>
 
                   {/* Info */}
@@ -50,10 +56,14 @@ export default function ComunidadesPage() {
                       <span>
                         {community.members.toLocaleString()} {t("communities.members")}
                       </span>
-                      <span>|</span>
-                      <span>
-                        {community.yearsExp} {t("communities.yearsExp")}
-                      </span>
+                      {community.yearsExp && (
+                        <>
+                          <span>|</span>
+                          <span>
+                            {community.yearsExp} {t("communities.yearsExp")}
+                          </span>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>

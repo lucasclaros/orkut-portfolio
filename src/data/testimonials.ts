@@ -14,7 +14,7 @@ export interface Testimonial {
 export const testimonials: Testimonial[] = [
   {
     id: "1",
-    name: "Alan Turing",
+    name: "Δlαη Tµяιηg.exe 🖥️",
     role: "Mathematician & Cryptanalyst",
     photo: "/images/friends/alan-turing.jpg",
     emoticon: "/images/emoticons/thinking.gif",
@@ -26,7 +26,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     id: "2",
-    name: "Ada Lovelace",
+    name: "Ada ♥ Lovelace [π]",
     role: "First Programmer",
     photo: "/images/friends/ada-lovelace.png",
     emoticon: "/images/emoticons/wink.gif",
@@ -39,7 +39,7 @@ export const testimonials: Testimonial[] = [
   },
   {
     id: "3",
-    name: "Linus Torvalds",
+    name: "LiNuX †ØRvALDs 🐧",
     role: "Linux Creator",
     photo: "/images/friends/linus-torvalds.jpg",
     emoticon: "/images/emoticons/cool.png",
@@ -51,27 +51,26 @@ export const testimonials: Testimonial[] = [
   },
   {
     id: "4",
-    name: "Grace Hopper",
-    role: "Compiler Pioneer",
-    photo: "/images/friends/grace-hopper.jpg",
+    name: "R9 • Ø FєηôмєηØ ⚽🇧🇷",
+    role: "Melhor do Mundo",
+    photo: "/images/friends/ronaldo-fenomeno.jpg",
     emoticon: "/images/emoticons/thumbsup.png",
     quote: {
-      "pt-BR":
-        "esse garoto não espera o bug aparecer, já tá corrigindo antes",
-      en: "this kid doesn't wait for the bug to show up, he's already fixing it",
+      "pt-BR": "o cara driblou tantos bugs que parecia eu driblando zagueiro",
+      en: "this guy dribbled past so many bugs it looked like me dribbling past defenders",
     },
-    date: "1985",
+    date: "2002",
   },
   {
     id: "5",
-    name: "Brendan Eich",
-    role: "JavaScript Creator",
-    photo: "/images/friends/brendan-eich.jpg",
+    name: "Avril Lavigne † sk8er girl 🎸🖤",
+    role: "Sk8er Girl",
+    photo: "/images/friends/avril-lavigne.jpg",
     emoticon: "/images/emoticons/grin.png",
     quote: {
-      "pt-BR": "fez em TypeScript o que eu fiz em 10 dias. só que funciona",
-      en: "did in TypeScript what I did in 10 days. except it works",
+      "pt-BR": "ele disse 'vou deployar sexta às 17h' e eu pensei: why'd you have to go and make things so complicated?",
+      en: "he said 'I'll deploy on friday at 5pm' and I thought: why'd you have to go and make things so complicated?",
     },
-    date: "2024",
+    date: "2007",
   },
 ];

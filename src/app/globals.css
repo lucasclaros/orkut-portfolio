@@ -31,3 +31,9 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+@media (min-width: 1280px) {
+  body {
+    zoom: 1.15;
+  }
+}

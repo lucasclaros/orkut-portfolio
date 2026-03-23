@@ -20,27 +20,27 @@ function incrementOnce() {
 }
 
 const friends = [
-  { name: "Alan Turing", photo: "/images/friends/alan-turing.jpg" },
-  { name: "Ada Lovelace", photo: "/images/friends/ada-lovelace.png" },
-  { name: "Linus Torvalds", photo: "/images/friends/linus-torvalds.jpg" },
-  { name: "Grace Hopper", photo: "/images/friends/grace-hopper.jpg" },
-  { name: "Dennis Ritchie", photo: "/images/friends/dennis-ritchie.jpg" },
-  { name: "Margaret Hamilton", photo: "/images/friends/margaret-hamilton.jpg" },
-  { name: "Guido van Rossum", photo: "/images/friends/guido-van-rossum.jpg" },
-  { name: "Tim Berners-Lee", photo: "/images/friends/tim-berners-lee.jpg" },
-  { name: "Brendan Eich", photo: "/images/friends/brendan-eich.jpg" },
+  { name: "Δlαη Tµяιηg.exe 🖥️", photo: "/images/friends/alan-turing.jpg" },
+  { name: "Ada ♥ Lovelace [π]", photo: "/images/friends/ada-lovelace.png" },
+  { name: "LiNuX †ØRvALDs 🐧", photo: "/images/friends/linus-torvalds.jpg" },
+  { name: "oOo tααl dØ RØnALdiNhØ gAuChØ ⚽✨", photo: "/images/friends/ronaldinho.jpg" },
+  { name: "Z!ZØu ⚽🏆", photo: "/images/friends/zidane.jpg" },
+  { name: "R9 • Ø FєηôмєηØ ⚽🇧🇷", photo: "/images/friends/ronaldo-fenomeno.jpg" },
+  { name: "Bob Marley ☮ Jah Bless 🌿🎶", photo: "/images/friends/bob-marley.jpg" },
+  { name: "Justin Bieber ✨ baby baby ooo 🎵💜", photo: "/images/friends/justin-bieber.jpg" },
+  { name: "Avril Lavigne † sk8er girl 🎸🖤", photo: "/images/friends/avril-lavigne.jpg" },
 ];
 
 const communityThumbs = [
-  { name: "Flutter Devs", logo: "/images/communities/flutter.png" },
-  { name: "Kotlin", logo: "/images/communities/kotlin.png" },
-  { name: "React", logo: "/images/communities/react.png" },
-  { name: "Docker", logo: "/images/communities/docker.png" },
-  { name: "Clean Arch", logo: "/images/communities/clean-arch.png" },
-  { name: "Firebase", logo: "/images/communities/firebase.png" },
-  { name: "Spring Boot", logo: "/images/communities/spring-boot.png" },
-  { name: "TypeScript", logo: "/images/communities/typescript.png" },
-  { name: "Git", logo: "/images/communities/git.png" },
+  { name: "Eu ❤ Flutter", logo: "/images/communities/flutter.png" },
+  { name: "React & TypeScript Brasil", logo: "/images/communities/react.png" },
+  { name: "Docker + Kubernetes na veia", logo: "/images/communities/docker.png" },
+  { name: "Eu odeio acordar cedo", logo: "/images/communities/acordar-cedo.jpg" },
+  { name: "Eu odeio segunda-feira", logo: "/images/communities/segunda-feira.jpg" },
+  { name: "Só mais 5 minutinhos", logo: "/images/communities/5-minutinhos.jpg" },
+  { name: "Eu abro a geladeira pra pensar", logo: "/images/communities/geladeira.jpg" },
+  { name: "Eu tenho medo do Plantão da Globo", logo: "/images/communities/plantao.jpg" },
+  { name: "Queria sorvete, mas era feijão", logo: "/images/communities/sorvete.jpg" },
 ];
 
 export function QuickStats() {
@@ -89,7 +89,7 @@ export function QuickStats() {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <p className="text-[8px] text-[#315B9E] mt-[2px] truncate leading-tight">
+                <p className="text-[8px] text-[#315B9E] mt-[2px] leading-tight line-clamp-2">
                   {friend.name}
                 </p>
               </div>
@@ -115,14 +115,14 @@ export function QuickStats() {
           <div className="grid grid-cols-3 gap-[4px]">
             {communityThumbs.map((comm) => (
               <div key={comm.name} className="text-center">
-                <div className="w-full aspect-square rounded-[2px] overflow-hidden border border-[#D8DFEA] bg-white flex items-center justify-center p-[4px]">
+                <div className="w-full aspect-square rounded-[2px] overflow-hidden border border-[#D8DFEA] bg-white flex items-center justify-center">
                   <img
                     src={comm.logo}
                     alt={comm.name}
-                    className="max-w-full max-h-full object-contain"
+                    className="w-full h-full object-cover"
                   />
                 </div>
-                <p className="text-[8px] text-[#315B9E] mt-[2px] truncate leading-tight">
+                <p className="text-[8px] text-[#315B9E] mt-[2px] leading-tight line-clamp-2">
                   {comm.name}
                 </p>
               </div>
