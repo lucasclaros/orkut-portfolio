@@ -22,7 +22,7 @@ export function ProfileCard() {
         {/* Mobile: horizontal layout */}
         <div className="flex md:block">
           {/* Photo */}
-          <div className="p-[6px] w-[100px] shrink-0 md:w-full">
+          <div className="p-[6px] w-[130px] shrink-0 md:w-full">
             <div className="w-full aspect-square rounded-[3px] border border-[#C3D1E0] overflow-hidden">
               <img src="/images/pfp.png" alt="Lucas Claros" className="w-full h-full object-cover" />
             </div>
@@ -30,11 +30,11 @@ export function ProfileCard() {
 
           {/* Name and info */}
           <div className="px-[8px] py-[6px] md:pb-[4px] md:pt-0 flex-1 min-w-0">
-            <h2 className="font-bold text-[12px] text-[#315B9E]">Lucas Claros</h2>
-            <p className="text-[10px] text-[#666] mt-[1px]">
+            <h2 className="font-bold text-[14px] md:text-[12px] text-[#315B9E]">Lucas Claros</h2>
+            <p className="text-[11px] md:text-[10px] text-[#666] mt-[1px]">
               {t("sidebar.male")}, 24
             </p>
-            <p className="text-[10px] text-[#999]">Catanduva, SP, Brasil</p>
+            <p className="text-[11px] md:text-[10px] text-[#999]">Catanduva, SP, Brasil</p>
           </div>
         </div>
 
