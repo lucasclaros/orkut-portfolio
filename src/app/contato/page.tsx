@@ -56,8 +56,6 @@ function renderEmoticons(text: string): ReactNode[] {
   });
 }
 
-const WEB3FORMS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "";
-
 export default function ContatoPage() {
   const { t } = useI18n();
   const [name, setName] = useState("");
@@ -84,15 +82,10 @@ export default function ContatoPage() {
     if (!name.trim() || !message.trim()) return;
     setStatus("sending");
     try {
-      const res = await fetch("https://api.web3forms.com/submit", {
+      const res = await fetch("/api/submit-scrap", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          access_key: WEB3FORMS_KEY,
-          subject: `novo scrap de ${name}`,
-          name,
-          message,
-        }),
+        body: JSON.stringify({ name, message }),
       });
       if (res.ok) {
         setStatus("sent");

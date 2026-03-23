@@ -1,4 +1,5 @@
 name = "orkut-portfolio"
+main = "src/worker.ts"
 compatibility_date = "2025-03-23"
 
 [assets]
