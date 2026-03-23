@@ -24,7 +24,7 @@ export function ProfileCard() {
           {/* Photo */}
           <div className="p-[6px] w-[130px] shrink-0 md:w-full">
             <div className="w-full aspect-square rounded-[3px] border border-[#C3D1E0] overflow-hidden">
-              <img src="/images/pfp.png" alt="Lucas Claros" className="w-full h-full object-cover" />
+              <img src="/images/pfp.jpg" alt="Lucas Claros" className="w-full h-full object-cover" />
             </div>
           </div>
 

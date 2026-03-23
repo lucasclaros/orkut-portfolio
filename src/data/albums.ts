@@ -77,25 +77,25 @@ export const albums: Album[] = [
       en: "p2p ticket resale marketplace with pix payments. clean architecture + BLoC.",
     },
     stack: ["Flutter", "Dart", "BLoC", "Dio"],
-    coverImage: "/images/albums/mepagaai/home.png",
+    coverImage: "/images/albums/mepagaai/home.jpg",
     githubUrl: "https://github.com/lucasclaros/mepaga_ai",
     photos: [
       {
-        src: "/images/albums/mepagaai/home.png",
+        src: "/images/albums/mepagaai/home.jpg",
         caption: {
           "pt-BR": "tela inicial com ingressos disponíveis",
           en: "home screen with available tickets",
         },
       },
       {
-        src: "/images/albums/mepagaai/ticket.png",
+        src: "/images/albums/mepagaai/ticket.jpg",
         caption: {
           "pt-BR": "detalhes do ingresso e fluxo de compra",
           en: "ticket details and purchase flow",
         },
       },
       {
-        src: "/images/albums/mepagaai/profile.png",
+        src: "/images/albums/mepagaai/profile.jpg",
         caption: {
           "pt-BR": "perfil do usuário",
           en: "user profile",
@@ -115,18 +115,18 @@ export const albums: Album[] = [
       en: "automated greenhouse with ESP32, sensors and mobile app. mechatronics technical degree final project (2019).",
     },
     stack: ["C++", "NodeMCU", "MIT App Inventor", "HTML"],
-    coverImage: "/images/albums/tcc/app-icon.jpeg",
+    coverImage: "/images/albums/tcc/app-icon.jpg",
     githubUrl: "https://github.com/lucasclaros/tcc-mecatronica",
     photos: [
       {
-        src: "/images/albums/tcc/app-icon.jpeg",
+        src: "/images/albums/tcc/app-icon.jpg",
         caption: {
           "pt-BR": "ícone do app de controle",
           en: "control app icon",
         },
       },
       {
-        src: "/images/albums/tcc/nodemcu.png",
+        src: "/images/albums/tcc/nodemcu.jpg",
         caption: {
           "pt-BR": "pinagem do NodeMCU usado no projeto",
           en: "NodeMCU pinout used in the project",

@@ -7,8 +7,34 @@ import { ProfileCard } from "@/components/sidebar/ProfileCard";
 import { QuickStats } from "@/components/sidebar/QuickStats";
 import { OrkutCard } from "@/components/ui/OrkutCard";
 import { OrkutButton } from "@/components/ui/OrkutButton";
-import { scraps } from "@/data/scraps";
+import { scraps, type Scrap } from "@/data/scraps";
 import { useState, useRef, type ReactNode } from "react";
+
+const PENDING_SCRAPS_KEY = "orkut-pending-scraps";
+
+function getPendingScraps(): Scrap[] {
+  if (typeof window === "undefined") return [];
+  try {
+    return JSON.parse(localStorage.getItem(PENDING_SCRAPS_KEY) || "[]");
+  } catch {
+    return [];
+  }
+}
+
+function savePendingScrap(scrap: Scrap) {
+  const pending = getPendingScraps();
+  pending.push(scrap);
+  localStorage.setItem(PENDING_SCRAPS_KEY, JSON.stringify(pending));
+}
+
+function cleanupPendingScraps(staticIds: Set<string>) {
+  const pending = getPendingScraps().filter((s) => !staticIds.has(s.id));
+  if (pending.length > 0) {
+    localStorage.setItem(PENDING_SCRAPS_KEY, JSON.stringify(pending));
+  } else {
+    localStorage.removeItem(PENDING_SCRAPS_KEY);
+  }
+}
 
 // --- Emoticon config ---
 const EMOTICON_MAP: Record<string, string> = {
@@ -61,7 +87,19 @@ export default function ContatoPage() {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [pendingScraps, setPendingScraps] = useState<Scrap[]>([]);
+  const [hydrated, setHydrated] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Load pending scraps from localStorage after hydration
+  if (!hydrated && typeof window !== "undefined") {
+    const staticIds = new Set(scraps.map((s) => s.id));
+    cleanupPendingScraps(staticIds);
+    setPendingScraps(getPendingScraps());
+    setHydrated(true);
+  }
+
+  const allScraps = [...scraps, ...pendingScraps.filter((s) => !scraps.some((e) => e.id === s.id))];
 
   const insertEmoticon = (code: string) => {
     const ta = textareaRef.current;
@@ -88,9 +126,13 @@ export default function ContatoPage() {
         body: JSON.stringify({ name, message }),
       });
       if (res.ok) {
+        const data = await res.json() as { scrap: Scrap };
+        savePendingScrap(data.scrap);
+        setPendingScraps((prev) => [...prev, data.scrap]);
         setStatus("sent");
         setName("");
         setMessage("");
+        setTimeout(() => setStatus("idle"), 3000);
       } else {
         setStatus("error");
       }
@@ -110,14 +152,14 @@ export default function ContatoPage() {
         center={
           <>
             {/* Scraps listing */}
-            <OrkutCard title={`${t("contact.title")} (${scraps.length})`}>
-              {scraps.length === 0 ? (
+            <OrkutCard title={`${t("contact.title")} (${allScraps.length})`}>
+              {allScraps.length === 0 ? (
                 <p className="text-[11px] text-[#999] p-[8px]">
                   {t("contact.noScraps")}
                 </p>
               ) : (
                 <div className="divide-y divide-[#E8E8E8]">
-                  {scraps.map((scrap, i) => (
+                  {allScraps.map((scrap, i) => (
                     <div
                       key={scrap.id}
                       className={`flex gap-[8px] p-[8px] ${
@@ -152,7 +194,7 @@ export default function ContatoPage() {
               {status === "sent" ? (
                 <div className="p-[8px] text-center">
                   <p className="text-[11px] text-[#2E7D32] font-bold">
-                    {t("contact.pendingApproval")}{" "}
+                    {t("contact.scrapSent")}{" "}
                     <img
                       src="/images/emoticons/msn-wink.gif"
                       alt=":wink:"

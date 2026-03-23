@@ -95,8 +95,7 @@ const messages = {
       name: "nome",
       namePlaceholder: "seu nome",
       preview: "preview",
-      pendingApproval:
-        "scrap enviado! aparece depois que Lucas aprovar",
+      scrapSent: "recado enviado!",
       noScraps: "nenhum recado ainda... seja o primeiro!",
       sending: "enviando...",
       errorSending: "erro ao enviar, tente novamente",
@@ -223,8 +222,7 @@ const messages = {
       name: "name",
       namePlaceholder: "your name",
       preview: "preview",
-      pendingApproval:
-        "scrap sent! it will appear after Lucas approves",
+      scrapSent: "scrap sent!",
       noScraps: "no scraps yet... be the first!",
       sending: "sending...",
       errorSending: "error sending, please try again",

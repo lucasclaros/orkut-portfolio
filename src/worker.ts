@@ -9,6 +9,10 @@ interface Env {
   ASSETS: Fetcher;
 }
 
+const REPO = "lucasclaros/orkut-portfolio";
+const FILE_PATH = "src/data/scraps.ts";
+const BRANCH = "main";
+
 function stripHtml(str: string): string {
   return str.replace(/<[^>]*>/g, "");
 }
@@ -47,6 +51,88 @@ function htmlPage(title: string, message: string): Response {
   );
 }
 
+async function commitScrap(
+  scrap: { id: string; name: string; message: string; date: string },
+  env: Env,
+): Promise<boolean> {
+  const fileRes = await fetch(
+    `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}?ref=${BRANCH}`,
+    { headers: { Authorization: `Bearer ${env.GITHUB_TOKEN}`, "User-Agent": "orkut-portfolio" } },
+  );
+
+  if (!fileRes.ok) return false;
+
+  const fileData = await fileRes.json<{ content: string; sha: string }>();
+  const currentContent = atob(fileData.content.replace(/\n/g, ""));
+
+  if (currentContent.includes(`id: "${scrap.id}"`)) return true;
+
+  const newEntry = `  {\n    id: "${scrap.id}",\n    name: ${JSON.stringify(scrap.name)},\n    message: ${JSON.stringify(scrap.message)},\n    date: "${scrap.date}",\n  },\n`;
+  const newContent = currentContent.replace(/\n\];\s*$/, `\n${newEntry}];\n`);
+
+  if (newContent === currentContent) return false;
+
+  const commitRes = await fetch(
+    `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${env.GITHUB_TOKEN}`,
+        "Content-Type": "application/json",
+        "User-Agent": "orkut-portfolio",
+      },
+      body: JSON.stringify({
+        message: `scrap: novo recado de ${scrap.name}`,
+        content: btoa(newContent),
+        sha: fileData.sha,
+        branch: BRANCH,
+      }),
+    },
+  );
+
+  return commitRes.ok;
+}
+
+async function removeScrap(scrapId: string, env: Env): Promise<boolean> {
+  const fileRes = await fetch(
+    `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}?ref=${BRANCH}`,
+    { headers: { Authorization: `Bearer ${env.GITHUB_TOKEN}`, "User-Agent": "orkut-portfolio" } },
+  );
+
+  if (!fileRes.ok) return false;
+
+  const fileData = await fileRes.json<{ content: string; sha: string }>();
+  const currentContent = atob(fileData.content.replace(/\n/g, ""));
+
+  // Remove the scrap entry block by matching its id
+  const pattern = new RegExp(
+    `  \\{\\n    id: "${scrapId}",[\\s\\S]*?\\},\\n`,
+  );
+  const newContent = currentContent.replace(pattern, "");
+
+  if (newContent === currentContent) return false;
+
+  const commitRes = await fetch(
+    `https://api.github.com/repos/${REPO}/contents/${FILE_PATH}`,
+    {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${env.GITHUB_TOKEN}`,
+        "Content-Type": "application/json",
+        "User-Agent": "orkut-portfolio",
+      },
+      body: JSON.stringify({
+        message: `scrap: removido recado ${scrapId}`,
+        content: btoa(newContent),
+        sha: fileData.sha,
+        branch: BRANCH,
+      }),
+    },
+  );
+
+  return commitRes.ok;
+}
+
 async function handleSubmitScrap(request: Request, env: Env): Promise<Response> {
   if (request.method !== "POST") {
     return new Response("Method not allowed", { status: 405 });
@@ -67,14 +153,18 @@ async function handleSubmitScrap(request: Request, env: Env): Promise<Response> 
     date: new Date().toISOString().slice(0, 10),
   };
 
-  const payload = btoa(JSON.stringify(scrap));
-  const approveUrl = `${env.SITE_URL}/api/approve-scrap?data=${payload}&token=${env.APPROVE_SECRET}`;
-  const rejectUrl = `${env.SITE_URL}/api/approve-scrap?action=reject&token=${env.APPROVE_SECRET}`;
+  // Auto-commit to repo
+  const committed = await commitScrap(scrap, env);
+  if (!committed) {
+    return Response.json({ error: "failed to save scrap" }, { status: 500 });
+  }
 
+  // Send notification email with delete button
   const safeName = escapeHtml(name);
   const safeMessage = escapeHtml(message);
+  const deleteUrl = `${env.SITE_URL}/api/delete-scrap?id=${scrap.id}&token=${env.APPROVE_SECRET}`;
 
-  const emailRes = await fetch("https://api.resend.com/emails", {
+  await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${env.RESEND_API_KEY}`,
@@ -97,22 +187,20 @@ async function handleSubmitScrap(request: Request, env: Env): Promise<Response> 
             </div>
           </div>
           <div style="padding:16px;text-align:center;background:#fff">
-            <a href="${approveUrl}" style="display:inline-block;background:#6D84B4;color:#fff;padding:10px 24px;border-radius:3px;text-decoration:none;font-size:12px;font-weight:bold;margin-right:8px">Aprovar</a>
-            <a href="${rejectUrl}" style="display:inline-block;background:#999;color:#fff;padding:10px 24px;border-radius:3px;text-decoration:none;font-size:12px;font-weight:bold">Recusar</a>
+            <span style="font-size:11px;color:#2E7D32;font-weight:bold">publicado automaticamente</span>
+            <br/><br/>
+            <a href="${deleteUrl}" style="display:inline-block;background:#c0392b;color:#fff;padding:10px 24px;border-radius:3px;text-decoration:none;font-size:12px;font-weight:bold">Excluir recado</a>
           </div>
         </div>
       `,
     }),
   });
 
-  if (!emailRes.ok) {
-    return Response.json({ error: "failed to send notification" }, { status: 500 });
-  }
-
-  return Response.json({ success: true });
+  // Return the scrap so the client can store it in localStorage
+  return Response.json({ success: true, scrap });
 }
 
-async function handleApproveScrap(request: Request, env: Env): Promise<Response> {
+async function handleDeleteScrap(request: Request, env: Env): Promise<Response> {
   const url = new URL(request.url);
   const token = url.searchParams.get("token") ?? "";
 
@@ -120,87 +208,17 @@ async function handleApproveScrap(request: Request, env: Env): Promise<Response>
     return htmlPage("Acesso negado", "Token invalido.");
   }
 
-  if (url.searchParams.get("action") === "reject") {
-    return htmlPage("Scrap recusado", "O recado foi descartado.");
+  const scrapId = url.searchParams.get("id");
+  if (!scrapId) {
+    return htmlPage("Erro", "ID do scrap nao encontrado.");
   }
-
-  const data = url.searchParams.get("data");
-  if (!data) {
-    return htmlPage("Erro", "Dados do scrap nao encontrados.");
-  }
-
-  let scrap: { id: string; name: string; message: string; date: string };
-  try {
-    const parsed = JSON.parse(atob(data));
-    if (
-      typeof parsed.id !== "string" ||
-      typeof parsed.name !== "string" ||
-      typeof parsed.message !== "string" ||
-      typeof parsed.date !== "string"
-    ) {
-      return htmlPage("Erro", "Dados do scrap invalidos.");
-    }
-    scrap = parsed;
-  } catch {
-    return htmlPage("Erro", "Dados do scrap invalidos.");
-  }
-
-  const repo = "lucasclaros/orkut-portfolio";
-  const filePath = "src/data/scraps.ts";
-  const branch = "main";
 
   try {
-    const fileRes = await fetch(
-      `https://api.github.com/repos/${repo}/contents/${filePath}?ref=${branch}`,
-      { headers: { Authorization: `Bearer ${env.GITHUB_TOKEN}`, "User-Agent": "orkut-portfolio" } },
-    );
-
-    if (!fileRes.ok) {
-      return htmlPage("Erro", "Falha ao acessar o repositorio.");
+    const removed = await removeScrap(scrapId, env);
+    if (removed) {
+      return htmlPage("Scrap excluido!", "O recado foi removido. O site sera atualizado em ~1 minuto.");
     }
-
-    const fileData = await fileRes.json<{ content: string; sha: string }>();
-    const currentContent = atob(fileData.content.replace(/\n/g, ""));
-    const currentSha = fileData.sha;
-
-    if (currentContent.includes(`id: "${scrap.id}"`)) {
-      return htmlPage("Ja aprovado", `O recado de <strong>${escapeHtml(scrap.name)}</strong> ja foi adicionado.`);
-    }
-
-    const newEntry = `  {\n    id: "${scrap.id}",\n    name: ${JSON.stringify(scrap.name)},\n    message: ${JSON.stringify(scrap.message)},\n    date: "${scrap.date}",\n  },\n`;
-
-    const newContent = currentContent.replace(/\n\];\s*$/, `\n${newEntry}];\n`);
-
-    if (newContent === currentContent) {
-      return htmlPage("Erro", "Estrutura do arquivo de scraps mudou. Contate Lucas.");
-    }
-
-    const commitRes = await fetch(
-      `https://api.github.com/repos/${repo}/contents/${filePath}`,
-      {
-        method: "PUT",
-        headers: {
-          Authorization: `Bearer ${env.GITHUB_TOKEN}`,
-          "Content-Type": "application/json",
-          "User-Agent": "orkut-portfolio",
-        },
-        body: JSON.stringify({
-          message: `scrap: aprovado recado de ${scrap.name}`,
-          content: btoa(newContent),
-          sha: currentSha,
-          branch,
-        }),
-      },
-    );
-
-    if (!commitRes.ok) {
-      return htmlPage("Erro", "Falha ao salvar o scrap. Tente novamente.");
-    }
-
-    return htmlPage(
-      "Scrap aprovado!",
-      `O recado de <strong>${escapeHtml(scrap.name)}</strong> foi adicionado. O site sera atualizado em ~1 minuto.`,
-    );
+    return htmlPage("Nao encontrado", "O recado ja foi removido ou nao existe.");
   } catch {
     return htmlPage("Erro", "Algo deu errado. Tente novamente.");
   }
@@ -214,8 +232,8 @@ export default {
       return handleSubmitScrap(request, env);
     }
 
-    if (url.pathname === "/api/approve-scrap") {
-      return handleApproveScrap(request, env);
+    if (url.pathname === "/api/delete-scrap") {
+      return handleDeleteScrap(request, env);
     }
 
     return env.ASSETS.fetch(request);
