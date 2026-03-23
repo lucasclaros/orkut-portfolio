@@ -8,6 +8,7 @@ export interface Community {
   members: number;
   yearsExp: number;
   icon: string;
+  emoticon?: string;
 }
 
 export const communities: Community[] = [
@@ -21,6 +22,7 @@ export const communities: Community[] = [
     members: 4200,
     yearsExp: 4,
     icon: "📱",
+    emoticon: "/images/emoticons/heart.png",
   },
   {
     id: "kotlin",
@@ -32,6 +34,7 @@ export const communities: Community[] = [
     members: 3100,
     yearsExp: 2,
     icon: "☕",
+    emoticon: "/images/emoticons/coffee.png",
   },
   {
     id: "react",
@@ -43,6 +46,7 @@ export const communities: Community[] = [
     members: 5600,
     yearsExp: 2,
     icon: "⚛️",
+    emoticon: "/images/emoticons/angry.png",
   },
   {
     id: "docker",
@@ -54,6 +58,7 @@ export const communities: Community[] = [
     members: 2800,
     yearsExp: 2,
     icon: "🐳",
+    emoticon: "/images/emoticons/cool.png",
   },
   {
     id: "clean-arch",
@@ -65,6 +70,7 @@ export const communities: Community[] = [
     members: 1900,
     yearsExp: 3,
     icon: "🏗️",
+    emoticon: "/images/emoticons/nerd.png",
   },
   {
     id: "firebase",
@@ -76,6 +82,7 @@ export const communities: Community[] = [
     members: 1200,
     yearsExp: 3,
     icon: "🔥",
+    emoticon: "/images/emoticons/crying.gif",
   },
   {
     id: "ai-tooling",
@@ -87,5 +94,6 @@ export const communities: Community[] = [
     members: 890,
     yearsExp: 1,
     icon: "🤖",
+    emoticon: "/images/emoticons/surprised.png",
   },
 ];

@@ -89,6 +89,15 @@ const messages = {
       send: "Enviar",
       cta: "Quer conversar sobre uma oportunidade? Me manda um recado!",
       orReachMe: "Ou me encontre em:",
+      leaveScrap: "deixe um recado",
+      name: "nome",
+      namePlaceholder: "seu nome",
+      preview: "preview",
+      pendingApproval:
+        "scrap enviado! aparece depois que Lucas aprovar",
+      noScraps: "nenhum recado ainda... seja o primeiro!",
+      sending: "enviando...",
+      errorSending: "erro ao enviar, tente novamente",
     },
     sidebar: {
       software_engineer: "Engenheiro de Software",
@@ -205,6 +214,15 @@ const messages = {
       send: "Send",
       cta: "Want to chat about an opportunity? Send me a scrap!",
       orReachMe: "Or reach me at:",
+      leaveScrap: "leave a scrap",
+      name: "name",
+      namePlaceholder: "your name",
+      preview: "preview",
+      pendingApproval:
+        "scrap sent! it will appear after Lucas approves",
+      noScraps: "no scraps yet... be the first!",
+      sending: "sending...",
+      errorSending: "error sending, please try again",
     },
     sidebar: {
       software_engineer: "Software Engineer",

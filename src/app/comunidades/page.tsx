@@ -38,6 +38,13 @@ export default function ComunidadesPage() {
                     </h4>
                     <p className="text-[10px] text-[#666] leading-[1.4]">
                       {community.description[locale]}
+                      {community.emoticon && (
+                        <img
+                          src={community.emoticon}
+                          alt=""
+                          className="inline-block w-[15px] h-[15px] ml-[4px] align-middle"
+                        />
+                      )}
                     </p>
                     <div className="flex gap-[8px] mt-[3px] text-[9px] text-[#999]">
                       <span>
