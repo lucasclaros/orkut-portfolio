@@ -18,4 +18,10 @@ export const scraps: Scrap[] = [
     message: "teste :party:",
     date: "2026-03-23",
   },
+  {
+    id: "f3cd6c2a-9aed-41f2-bb47-817cc7af3fce",
+    name: "scrap teste",
+    message: "scrap teste :party::party::eyeroll::heart:",
+    date: "2026-03-23",
+  },
 ];
