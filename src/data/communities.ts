@@ -69,7 +69,7 @@ export const communities: Community[] = [
   // --- orkut classicas ---
   {
     id: "acordar-cedo",
-    name: "Eu odeio acordar cedo",
+    name: "Eu Odeio Acordar Cedo",
     description: {
       "pt-BR": "despertador é inimigo nº 1 da humanidade",
       en: "alarm clocks are humanity's #1 enemy",
@@ -117,7 +117,7 @@ export const communities: Community[] = [
   },
   {
     id: "plantao",
-    name: "Eu tenho medo do Plantão da Globo",
+    name: "Eu tenho medo do PLANTÃO",
     description: {
       "pt-BR": "aquele TUM TUM TUM não é brincadeira",
       en: "that TUM TUM TUM is no joke",

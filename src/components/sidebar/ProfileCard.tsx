@@ -3,17 +3,16 @@
 import { useI18n } from "@/i18n";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { StarRating } from "@/components/ui/StarRating";
 
 export function ProfileCard() {
   const { t } = useI18n();
   const pathname = usePathname();
 
   const sidebarNav = [
-    { path: "/perfil", label: t("sidebar.profile") },
-    { path: "/contato", label: t("sidebar.scraps") },
-    { path: "/albuns", label: t("sidebar.photos") },
-    { path: "/depoimentos", label: t("nav.testimonials") },
+    { path: "/perfil", label: t("sidebar.profile"), icon: "/images/emoticons/sidebar-perfil.png" },
+    { path: "/contato", label: t("sidebar.scraps"), icon: "/images/emoticons/sidebar-recados.png" },
+    { path: "/projetos", label: t("sidebar.projects"), icon: "/images/emoticons/sidebar-videos.png" },
+    { path: "/depoimentos", label: t("sidebar.testimonials"), icon: "/images/emoticons/sidebar-depoimentos.png" },
   ];
 
   return (
@@ -32,32 +31,52 @@ export function ProfileCard() {
           {/* Name and info */}
           <div className="px-[8px] py-[6px] md:pb-[4px] md:pt-0 flex-1 min-w-0">
             <h2 className="font-bold text-[12px] text-[#315B9E]">Lucas Claros</h2>
-            <p className="text-[10px] text-[#ED008C] font-bold mt-[1px]">
-              {t("sidebar.software_engineer")}
-            </p>
             <p className="text-[10px] text-[#666] mt-[1px]">
               {t("sidebar.male")}, 24
             </p>
             <p className="text-[10px] text-[#999]">Catanduva, SP, Brasil</p>
-
-            {/* Star ratings - inline on mobile */}
-            <div className="mt-[4px] md:hidden">
-              <StarRating label={t("sidebar.reliable")} rating={3} />
-              <StarRating label={t("sidebar.cool")} rating={3} />
-              <StarRating label={t("sidebar.sexy")} rating={2} />
-            </div>
           </div>
         </div>
 
-        {/* Star ratings - desktop only */}
-        <div className="hidden md:block px-[8px] py-[6px] border-t border-[#E8E8E8]">
-          <StarRating label={t("sidebar.reliable")} rating={3} />
-          <StarRating label={t("sidebar.cool")} rating={3} />
-          <StarRating label={t("sidebar.sexy")} rating={2} />
+        {/* Action links */}
+        <div className="px-[8px] py-[4px] border-t border-[#E8E8E8]">
+          <p className="text-[10px] text-[#315B9E] cursor-pointer hover:underline">
+            + {t("sidebar.addFriend")}
+          </p>
+          <p className="text-[10px] text-[#315B9E] cursor-pointer hover:underline mt-[2px]">
+            {t("sidebar.more")} &raquo;
+          </p>
         </div>
 
-        {/* Stats */}
-        <div className="px-[8px] py-[6px] border-t border-[#E8E8E8]">
+        {/* Icon menu - orkut style with bg-[#eff9ff] and border-[#dde9f8] */}
+        <div className="border-t border-[#dde9f8]">
+          {sidebarNav.map((link, i) => {
+            const isActive = pathname === link.path;
+            const isFirst = i === 0;
+            const isLast = i === sidebarNav.length - 1;
+            return (
+              <Link
+                key={link.path}
+                href={link.path}
+                className={`flex items-center gap-[6px] px-[8px] py-[3px] text-[12px] no-underline border border-[#dde9f8] border-t-0 leading-[22px] ${
+                  isFirst ? "rounded-t-[2px]" : ""
+                } ${isLast ? "rounded-b-[2px]" : ""} ${
+                  isActive
+                    ? "text-[#333] font-bold bg-[#d9e8fc]"
+                    : "text-[#535c69] bg-[#eff9ff] hover:bg-[#e0edfa]"
+                }`}
+              >
+                <img src={link.icon} alt="" className="w-[16px] h-[16px]" />
+                {link.label}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Stats */}
+      <div className="bg-white border border-[#C3D1E0] rounded-[5px] overflow-hidden mb-[8px]">
+        <div className="px-[8px] py-[6px]">
           <div className="grid grid-cols-3 gap-[4px] text-center">
             <div>
               <p className="font-bold text-[13px] text-[#315B9E]">4+</p>
@@ -73,9 +92,11 @@ export function ProfileCard() {
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Download resume */}
-        <div className="px-[8px] py-[6px] border-t border-[#E8E8E8]">
+      {/* Download resume */}
+      <div className="bg-white border border-[#C3D1E0] rounded-[5px] overflow-hidden mb-[8px]">
+        <div className="px-[8px] py-[6px]">
           <a
             href="/Lucas-Claros-Resume.pdf"
             download
@@ -86,36 +107,8 @@ export function ProfileCard() {
         </div>
       </div>
 
-      {/* Action link - hidden on mobile (redundant with navbar) */}
-      <p className="hidden md:block text-[10px] text-[#315B9E] mb-[6px] cursor-pointer hover:underline">
-        + {t("sidebar.addFriend")}
-      </p>
-
-      {/* More link */}
-      <p className="hidden md:block text-[10px] text-[#315B9E] mb-[8px] cursor-pointer hover:underline">
-        {t("sidebar.more")} ▸
-      </p>
-
-      {/* Navigation links - hidden on mobile (redundant with navbar) */}
-      <div className="hidden md:block space-y-[3px] border-t border-[#D8DFEA] pt-[6px]">
-        {sidebarNav.map((link) => {
-          const isActive = pathname === link.path;
-          return (
-            <Link
-              key={link.path}
-              href={link.path}
-              className={`block text-[11px] no-underline hover:underline ${
-                isActive ? "text-[#333] font-bold" : "text-[#315B9E]"
-              }`}
-            >
-              {link.label}
-            </Link>
-          );
-        })}
-      </div>
-
       {/* External links */}
-      <div className="hidden md:block space-y-[3px] border-t border-[#D8DFEA] pt-[6px] mt-[8px]">
+      <div className="hidden md:block space-y-[3px]">
         <a
           href="https://github.com/lucasclaros"
           target="_blank"

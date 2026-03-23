@@ -2,15 +2,25 @@
 
 import { useI18n } from "@/i18n";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { OrkutButton } from "@/components/ui/OrkutButton";
 
 export default function LoginPage() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const router = useRouter();
+  const [loading] = useState(true);
 
   const handleLogin = () => {
     router.push("/perfil");
   };
+
+  useEffect(() => {
+    const navTimeout = setTimeout(() => {
+      handleLogin();
+    }, 2000);
+
+    return () => clearTimeout(navTimeout);
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">
@@ -51,7 +61,7 @@ export default function LoginPage() {
                 </h2>
               </div>
 
-              <div className="p-3 space-y-2.5">
+              <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }} className="p-3 space-y-2.5">
                 {/* Email */}
                 <div>
                   <label className="block text-[11px] text-orkut-text mb-0.5">
@@ -78,13 +88,29 @@ export default function LoginPage() {
                   />
                 </div>
 
-                {/* Login button */}
-                <OrkutButton
-                  onClick={handleLogin}
-                  className="w-full py-1 font-bold"
-                >
-                  {t("login.login")}
-                </OrkutButton>
+                {/* Login button or loading bar */}
+                {!loading ? (
+                  <OrkutButton
+                    type="submit"
+                    className="w-full py-1 font-bold"
+                  >
+                    {t("login.login")}
+                  </OrkutButton>
+                ) : (
+                  <div className="w-full border border-[#BDC7D8] rounded-[3px] bg-[#e8e8e8] h-[24px] overflow-hidden relative">
+                    <div
+                      className="h-full rounded-[2px]"
+                      style={{
+                        background: "linear-gradient(90deg, #6D84B4 25%, #8CA0CC 50%, #6D84B4 75%)",
+                        backgroundSize: "200% 100%",
+                        animation: "orkut-progress 2s linear forwards",
+                      }}
+                    />
+                    <span className="absolute inset-0 flex items-center justify-center text-[10px] text-[#333] font-bold">
+                      {locale === "pt-BR" ? "entrando..." : "signing in..."}
+                    </span>
+                  </div>
+                )}
 
                 <div className="flex items-center justify-between text-[10px]">
                   <label className="flex items-center gap-1 text-orkut-text-light cursor-pointer">
@@ -99,7 +125,7 @@ export default function LoginPage() {
                     {t("login.forgotPassword")}
                   </span>
                 </div>
-              </div>
+              </form>
             </div>
 
             <p className="text-[11px] text-orkut-text-light mt-3 text-center">
@@ -119,6 +145,14 @@ export default function LoginPage() {
           <p>&copy; 2007 orkut.com - Portfolio de Lucas Claros</p>
         </div>
       </div>
+
+      {/* Progress bar animation */}
+      <style jsx>{`
+        @keyframes orkut-progress {
+          0% { width: 0%; }
+          100% { width: 100%; }
+        }
+      `}</style>
     </div>
   );
 }

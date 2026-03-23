@@ -12,6 +12,13 @@ import { useState, useRef, type ReactNode } from "react";
 
 // --- Emoticon config ---
 const EMOTICON_MAP: Record<string, string> = {
+  ":wink:": "/images/emoticons/msn-wink.gif",
+  ":crying:": "/images/emoticons/msn-crying.gif",
+  ":eyeroll:": "/images/emoticons/msn-eyeroll.gif",
+  ":idk:": "/images/emoticons/msn-idk.gif",
+  ":party:": "/images/emoticons/msn-party.gif",
+  ":sleepy:": "/images/emoticons/msn-sleepy.gif",
+  ":thinking:": "/images/emoticons/msn-thinking.gif",
   ":smile:": "/images/emoticons/msn-smile.png",
   ":laugh:": "/images/emoticons/msn-laugh.png",
   ":cool:": "/images/emoticons/msn-cool.png",
@@ -26,13 +33,6 @@ const EMOTICON_MAP: Record<string, string> = {
   ":surprised:": "/images/emoticons/msn-surprised.png",
   ":coffee:": "/images/emoticons/msn-coffee.png",
   ":star:": "/images/emoticons/msn-star.png",
-  ":crying:": "/images/emoticons/msn-crying.gif",
-  ":eyeroll:": "/images/emoticons/msn-eyeroll.gif",
-  ":idk:": "/images/emoticons/msn-idk.gif",
-  ":party:": "/images/emoticons/msn-party.gif",
-  ":sleepy:": "/images/emoticons/msn-sleepy.gif",
-  ":thinking:": "/images/emoticons/msn-thinking.gif",
-  ":wink:": "/images/emoticons/msn-wink.gif",
 };
 
 const EMOTICON_CODES = Object.keys(EMOTICON_MAP);
@@ -259,7 +259,7 @@ export default function ContatoPage() {
                   href="mailto:lucas.claros11@gmail.com"
                   className="flex items-center gap-[6px] text-[11px] text-[#315B9E] hover:underline p-[4px] bg-[#F4F7FC] rounded-[3px]"
                 >
-                  <span className="text-[14px]">@</span>
+                  <span className="w-[20px] text-center text-[14px] shrink-0">@</span>
                   lucas.claros11@gmail.com
                 </a>
                 <a
@@ -268,7 +268,7 @@ export default function ContatoPage() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-[6px] text-[11px] text-[#315B9E] hover:underline p-[4px] bg-white rounded-[3px]"
                 >
-                  <span className="text-[14px] font-bold">in</span>
+                  <span className="w-[20px] text-center text-[14px] font-bold shrink-0">in</span>
                   LinkedIn
                 </a>
                 <a
@@ -277,7 +277,7 @@ export default function ContatoPage() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-[6px] text-[11px] text-[#315B9E] hover:underline p-[4px] bg-[#F4F7FC] rounded-[3px]"
                 >
-                  <span className="text-[14px]">{"</>"}</span>
+                  <span className="w-[20px] text-center text-[14px] shrink-0">{"</>"}</span>
                   GitHub
                 </a>
               </div>

@@ -26,20 +26,44 @@ export interface Album {
 
 export const albums: Album[] = [
   {
-    id: "cobli",
+    id: "cobli-motorista",
     title: {
-      "pt-BR": "Cobli Apps",
-      en: "Cobli Apps",
+      "pt-BR": "Cobli Motorista",
+      en: "Cobli Motorista",
     },
     description: {
       "pt-BR":
-        "app do motorista e gestor de frota. referência em Flutter na empresa.",
-      en: "driver and fleet manager apps. company-wide Flutter reference.",
+        "app do motorista para indicar veículo em uso e consultar histórico. referência em Flutter na empresa.",
+      en: "driver app to indicate vehicle in use and check history. company-wide Flutter reference.",
     },
-    stack: ["Flutter", "Kotlin", "React", "TypeScript"],
-    coverGradient: "from-[#1A73E8] to-[#0D47A1]",
-    coverIcon: "🚛",
-    photos: [],
+    stack: ["Flutter", "Dart", "BLoC"],
+    coverImage: "/images/albums/cobli-motorista/1.png",
+    photos: [
+      { src: "/images/albums/cobli-motorista/1.png", caption: { "pt-BR": "tela inicial", en: "home screen" } },
+      { src: "/images/albums/cobli-motorista/2.png", caption: { "pt-BR": "seleção de veículo", en: "vehicle selection" } },
+      { src: "/images/albums/cobli-motorista/3.png", caption: { "pt-BR": "detalhes da viagem", en: "trip details" } },
+      { src: "/images/albums/cobli-motorista/4.png", caption: { "pt-BR": "histórico de uso", en: "usage history" } },
+    ],
+  },
+  {
+    id: "cobli-gestor",
+    title: {
+      "pt-BR": "Cobli Gestor de Frotas",
+      en: "Cobli Fleet Manager",
+    },
+    description: {
+      "pt-BR":
+        "app do gestor para monitorar frota, rastrear rotas e acessar vídeos de eventos em tempo real.",
+      en: "manager app to monitor fleet, track routes and access real-time event videos.",
+    },
+    stack: ["Flutter", "Dart", "Kotlin", "React"],
+    coverImage: "/images/albums/cobli-gestor/1.png",
+    photos: [
+      { src: "/images/albums/cobli-gestor/1.png", caption: { "pt-BR": "painel da frota", en: "fleet dashboard" } },
+      { src: "/images/albums/cobli-gestor/2.png", caption: { "pt-BR": "rastreamento de veículos", en: "vehicle tracking" } },
+      { src: "/images/albums/cobli-gestor/3.png", caption: { "pt-BR": "detalhes do veículo", en: "vehicle details" } },
+      { src: "/images/albums/cobli-gestor/4.png", caption: { "pt-BR": "vídeos de eventos", en: "event videos" } },
+    ],
   },
   {
     id: "mepagaai",

@@ -2,7 +2,7 @@
 
 import { useI18n } from "@/i18n";
 import Link from "next/link";
-import { useSyncExternalStore, useCallback } from "react";
+import { useSyncExternalStore, useEffect } from "react";
 
 function getVisitorCount() {
   if (typeof window === "undefined") return 0;
@@ -19,7 +19,19 @@ function incrementOnce() {
   localStorage.setItem("orkut-visitors", count.toString());
 }
 
-const friends = [
+export function useVisitorCount() {
+  useEffect(() => {
+    incrementOnce();
+  }, []);
+
+  return useSyncExternalStore(
+    () => () => {},
+    () => getVisitorCount(),
+    () => 0,
+  );
+}
+
+export const friends = [
   { name: "Δlαη Tµяιηg.exe 🖥️", photo: "/images/friends/alan-turing.jpg" },
   { name: "Ada ♥ Lovelace [π]", photo: "/images/friends/ada-lovelace.png" },
   { name: "LiNuX †ØRvALDs 🐧", photo: "/images/friends/linus-torvalds.jpg" },
@@ -31,34 +43,28 @@ const friends = [
   { name: "Avril Lavigne † sk8er girl 🎸🖤", photo: "/images/friends/avril-lavigne.jpg" },
 ];
 
-const communityThumbs = [
+export const communityThumbs = [
   { name: "Eu ❤ Flutter", logo: "/images/communities/flutter.png" },
   { name: "React & TypeScript Brasil", logo: "/images/communities/react.png" },
   { name: "Docker + Kubernetes na veia", logo: "/images/communities/docker.png" },
-  { name: "Eu odeio acordar cedo", logo: "/images/communities/acordar-cedo.jpg" },
+  { name: "Eu Odeio Acordar Cedo", logo: "/images/communities/acordar-cedo.jpg" },
   { name: "Eu odeio segunda-feira", logo: "/images/communities/segunda-feira.jpg" },
   { name: "Só mais 5 minutinhos", logo: "/images/communities/5-minutinhos.jpg" },
   { name: "Eu abro a geladeira pra pensar", logo: "/images/communities/geladeira.jpg" },
-  { name: "Eu tenho medo do Plantão da Globo", logo: "/images/communities/plantao.jpg" },
+  { name: "Eu tenho medo do PLANTÃO", logo: "/images/communities/plantao.jpg" },
   { name: "Queria sorvete, mas era feijão", logo: "/images/communities/sorvete.jpg" },
 ];
 
 export function QuickStats() {
   const { t } = useI18n();
 
-  incrementOnce();
-
-  const visitors = useSyncExternalStore(
-    useCallback(() => () => {}, []),
-    () => getVisitorCount(),
-    () => 0,
-  );
+  const visitors = useVisitorCount();
 
   return (
     <>
       {/* Lucky day banner */}
       <div className="bg-[#FFF9C4] border border-[#E6D87C] rounded-[5px] text-center py-[6px] px-[8px]">
-        <p className="text-[9px] text-[#996600] font-bold whitespace-nowrap">
+        <p className="text-[9px] text-[#996600] font-bold">
           <img src="/images/emoticons/star.png" alt="" className="inline-block w-[14px] h-[14px] align-middle mr-[2px]" />
           {t("sidebar.luckyDay")}
           <img src="/images/emoticons/star.png" alt="" className="inline-block w-[14px] h-[14px] align-middle ml-[2px]" />

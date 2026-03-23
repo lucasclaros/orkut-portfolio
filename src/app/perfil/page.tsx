@@ -5,19 +5,33 @@ import { OrkutNavbar } from "@/components/layout/OrkutNavbar";
 import { ThreeColumnLayout } from "@/components/layout/ThreeColumnLayout";
 import { ProfileCard } from "@/components/sidebar/ProfileCard";
 import { QuickStats } from "@/components/sidebar/QuickStats";
-import { OrkutCard } from "@/components/ui/OrkutCard";
+import { scraps } from "@/data/scraps";
+import { albums } from "@/data/albums";
+import { useState } from "react";
+import Link from "next/link";
 
 const experience = [
   {
-    role: { "pt-BR": "Software Engineer", en: "Software Engineer" },
+    role: { "pt-BR": "Software Engineer I", en: "Software Engineer I" },
     company: "Cobli",
-    period: { "pt-BR": "2022 – presente", en: "2022 – present" },
+    period: { "pt-BR": "2023 – presente", en: "2023 – present" },
     description: {
       "pt-BR":
         "Fullstack com Flutter, Kotlin/Spring Boot e React/TypeScript. Referência em Flutter na empresa. Features usadas por centenas de frotas e milhares de motoristas.",
       en: "Fullstack with Flutter, Kotlin/Spring Boot and React/TypeScript. Company-wide Flutter reference. Shipped features used by hundreds of fleets and thousands of drivers.",
     },
-    icon: "🚛",
+    icon: "/images/companies/cobli.png",
+  },
+  {
+    role: { "pt-BR": "Estagiário de Software", en: "Software Intern" },
+    company: "Cobli",
+    period: { "pt-BR": "2022 – 2023", en: "2022 – 2023" },
+    description: {
+      "pt-BR":
+        "Desenvolvimento mobile com Flutter e participação em projetos fullstack. Transição de estagiário para engenheiro.",
+      en: "Mobile development with Flutter and participation in fullstack projects. Transitioned from intern to engineer.",
+    },
+    icon: "/images/companies/cobli.png",
   },
   {
     role: { "pt-BR": "Estagiário Mobile", en: "Mobile Intern" },
@@ -28,7 +42,7 @@ const experience = [
         "Desenvolvimento mobile com Flutter e Dart. Primeiro contato profissional com desenvolvimento de software.",
       en: "Mobile development with Flutter and Dart. First professional experience with software development.",
     },
-    icon: "📱",
+    icon: "/images/companies/tokenlab.png",
   },
   {
     role: {
@@ -42,7 +56,7 @@ const experience = [
         "Universidade de São Paulo. Algoritmos, estruturas de dados, sistemas operacionais, computação gráfica.",
       en: "University of São Paulo. Algorithms, data structures, operating systems, computer graphics.",
     },
-    icon: "🎓",
+    icon: "/images/companies/icmc.png",
   },
   {
     role: {
@@ -56,12 +70,15 @@ const experience = [
         "Instituto Federal de São Paulo. Eletrônica, programação, automação. TCC: estufa automatizada com ESP32 e app mobile.",
       en: "Federal Institute of São Paulo. Electronics, programming, automation. Final project: automated greenhouse with ESP32 and mobile app.",
     },
-    icon: "⚙️",
+    icon: "/images/companies/ifsp.png",
   },
 ];
 
+type ProfileTab = "social" | "professional";
+
 export default function PerfilPage() {
   const { t, locale } = useI18n();
+  const [activeTab, setActiveTab] = useState<ProfileTab>("social");
 
   const professionalInfo = [
     { label: t("profile.role"), value: t("profile.roleValue") },
@@ -78,14 +95,24 @@ export default function PerfilPage() {
     { label: t("profile.children"), value: t("profile.childrenValue") },
     { label: t("profile.smoker"), value: t("profile.smokerValue") },
     { label: t("profile.livesWith"), value: t("profile.livesWithValue") },
+    { label: t("profile.country"), value: t("profile.countryValue") },
+    { label: t("profile.city"), value: t("profile.cityValue") },
     { label: t("profile.style"), value: t("profile.styleValue") },
     { label: t("profile.passion"), value: t("profile.passionValue") },
     { label: t("profile.music"), value: t("profile.musicValue") },
     { label: t("profile.movies"), value: t("profile.moviesValue") },
     { label: t("profile.books"), value: t("profile.booksValue") },
-    { label: t("profile.country"), value: t("profile.countryValue") },
-    { label: t("profile.city"), value: t("profile.cityValue") },
   ];
+
+  const tabs: { key: ProfileTab; label: string }[] = [
+    { key: "social", label: "social" },
+    { key: "professional", label: locale === "pt-BR" ? "profissional" : "professional" },
+  ];
+
+  const currentTabData =
+    activeTab === "professional"
+      ? professionalInfo
+      : socialInfo;
 
   return (
     <>
@@ -94,94 +121,163 @@ export default function PerfilPage() {
         left={<ProfileCard />}
         center={
           <>
-            {/* Welcome banner */}
-            <div className="bg-white border border-[#C3D1E0] rounded-[5px] p-[8px] text-[11px] text-[#666]">
-              {t("sidebar.welcomeTo")}{" "}
-              <span className="font-bold text-[#315B9E]">Lucas Claros</span>!
-            </div>
+            {/* Profile header */}
+            <div className="bg-white border border-[#C3D1E0] rounded-[5px] overflow-hidden">
+              <div className="p-[10px]">
+                {/* Name */}
+                <h1 className="text-[18px] font-bold text-[#333] mb-[6px]">Lucas Claros</h1>
 
-            {/* About me */}
-            <OrkutCard title={t("profile.aboutMe")}>
-              <p className="text-[11px] leading-[1.6] text-[#333]">
-                {t("profile.aboutText")}
-              </p>
-            </OrkutCard>
+                {/* Counters row */}
+                <div className="flex items-start gap-[12px] flex-wrap">
+                  {/* recados */}
+                  <Link href="/contato" className="no-underline">
+                    <p className="text-[10px] text-[#535c69]">recados</p>
+                    <div className="flex items-center gap-[3px]">
+                      <img src="/images/emoticons/sidebar-recados.png" alt="" className="w-[16px] h-[16px]" />
+                      <span className="text-[12px] text-[#535c69]">{scraps.length}</span>
+                    </div>
+                  </Link>
+                  {/* projetos */}
+                  <Link href="/projetos" className="no-underline">
+                    <p className="text-[10px] text-[#535c69]">{t("sidebar.projects")}</p>
+                    <div className="flex items-center gap-[3px]">
+                      <img src="/images/emoticons/sidebar-videos.png" alt="" className="w-[16px] h-[16px]" />
+                      <span className="text-[12px] text-[#535c69]">{albums.length}</span>
+                    </div>
+                  </Link>
 
-            {/* Professional info */}
-            <OrkutCard title={t("profile.professionalInfo")}>
-              <table className="w-full text-[11px]">
-                <tbody>
-                  {professionalInfo.map((item, i) => (
-                    <tr
-                      key={item.label}
-                      className={i % 2 === 0 ? "bg-[#F4F7FC]" : "bg-white"}
-                    >
-                      <td className="py-[4px] px-[6px] font-bold text-[#666] w-[130px] align-top">
-                        {item.label}:
-                      </td>
-                      <td className="py-[4px] px-[6px] text-[#333]">
-                        {item.value}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </OrkutCard>
+                  {/* fas */}
+                  <span>
+                    <p className="text-[10px] text-[#535c69]">fãs</p>
+                    <div className="flex items-center gap-[3px]">
+                      <img src="/images/emoticons/orkut-fas.png" alt="" className="w-[16px] h-[16px]" />
+                      <span className="text-[12px] text-[#535c69]">15</span>
+                    </div>
+                  </span>
 
-            {/* Social info */}
-            <OrkutCard title={t("profile.socialInfo")}>
-              <table className="w-full text-[11px]">
-                <tbody>
-                  {socialInfo.map((item, i) => (
-                    <tr
-                      key={item.label}
-                      className={i % 2 === 0 ? "bg-[#F4F7FC]" : "bg-white"}
-                    >
-                      <td className="py-[4px] px-[6px] font-bold text-[#666] w-[130px] align-top">
-                        {item.label}:
-                      </td>
-                      <td className="py-[4px] px-[6px] text-[#333]">
-                        {item.value}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </OrkutCard>
+                  {/* confiavel */}
+                  <span>
+                    <p className="text-[10px] text-[#535c69]">{t("sidebar.reliable")}</p>
+                    <div className="flex items-center">
+                      <img src="/images/emoticons/orkut-confiavel.png" alt="" className="w-[18px] h-[18px]" />
+                      <img src="/images/emoticons/orkut-confiavel.png" alt="" className="w-[18px] h-[18px]" />
+                      <img src="/images/emoticons/orkut-confiavel.png" alt="" className="w-[18px] h-[18px]" />
+                    </div>
+                  </span>
+                  {/* legal */}
+                  <span>
+                    <p className="text-[10px] text-[#535c69]">{t("sidebar.cool")}</p>
+                    <div className="flex items-center">
+                      <img src="/images/emoticons/orkut-legal.png" alt="" className="w-[18px] h-[18px]" />
+                      <img src="/images/emoticons/orkut-legal.png" alt="" className="w-[18px] h-[18px]" />
+                      <img src="/images/emoticons/orkut-legal.png" alt="" className="w-[18px] h-[18px]" />
+                    </div>
+                  </span>
+                  {/* sexy */}
+                  <span>
+                    <p className="text-[10px] text-[#535c69]">sexy</p>
+                    <div className="flex items-center">
+                      <img src="/images/emoticons/orkut-sexy.png" alt="" className="w-[18px] h-[18px]" />
+                      <img src="/images/emoticons/orkut-sexy.png" alt="" className="w-[18px] h-[18px]" />
+                      <img src="/images/emoticons/orkut-sexy.png" alt="" className="w-[18px] h-[18px]" />
+                    </div>
+                  </span>
+                </div>
+              </div>
 
-            {/* Experience timeline */}
-            <OrkutCard title={t("profile.experience")}>
-              <div className="divide-y divide-[#E8E8E8]">
-                {experience.map((exp, i) => (
-                  <div
-                    key={exp.company + exp.period[locale]}
-                    className={`flex gap-[8px] p-[8px] ${
-                      i % 2 === 0 ? "bg-[#F4F7FC]" : "bg-white"
+              {/* Divider line */}
+              <div className="border-t border-[#C3D1E0]" />
+
+              {/* About me */}
+              <div className="px-[10px] py-[6px]">
+                <h3 className="text-[11px] font-bold text-[#315B9E] mb-[4px]">{t("profile.aboutMe")}</h3>
+                <p className="text-[11px] leading-[1.6] text-[#333]">
+                  {t("profile.aboutText")}
+                </p>
+              </div>
+
+              {/* Divider line */}
+              <div className="border-t border-[#C3D1E0]" />
+
+              {/* Tabs: social | professional | personal */}
+              <div className="flex gap-[2px] px-[6px] pt-[4px]">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab.key}
+                    onClick={() => setActiveTab(tab.key)}
+                    className={`px-[10px] py-[3px] text-[12px] font-bold cursor-pointer border-none rounded-t-[7px] ${
+                      activeTab === tab.key
+                        ? "text-white"
+                        : "bg-transparent text-[#315B9E] hover:bg-[#E8EEF7] rounded-t-[4px]"
                     }`}
+                    style={activeTab === tab.key ? {
+                      background: "linear-gradient(180deg, #517fc5 13%, rgba(81,127,197,0.75) 31%, rgba(81,127,197,0.75) 83%, #517fc5 96%)"
+                    } : undefined}
                   >
-                    <div className="w-[40px] h-[40px] rounded-[3px] bg-gradient-to-br from-[#E8F0FE] to-[#C5D7F1] flex items-center justify-center shrink-0 border border-[#D8DFEA]">
-                      <span className="text-[20px]">{exp.icon}</span>
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-baseline gap-[4px] flex-wrap">
-                        <span className="font-bold text-[11px] text-[#315B9E]">
-                          {exp.role[locale]}
-                        </span>
-                        <span className="text-[10px] text-[#999]">
-                          @ {exp.company}
-                        </span>
-                      </div>
-                      <p className="text-[9px] text-[#999] mt-[1px]">
-                        {exp.period[locale]}
-                      </p>
-                      <p className="text-[10px] text-[#333] leading-[1.4] mt-[2px]">
-                        {exp.description[locale]}
-                      </p>
-                    </div>
-                  </div>
+                    {tab.label}
+                  </button>
                 ))}
               </div>
-            </OrkutCard>
+
+              {/* Tab content - info table */}
+              <table className="w-full text-[11px] border-collapse">
+                <tbody>
+                  {currentTabData.map((item, i) => (
+                    <tr
+                      key={item.label}
+                      className={i % 2 === 0 ? "bg-[#D1E1F5]" : "bg-[#E8F0FE]"}
+                    >
+                      <td className="py-[4px] px-[8px] font-bold text-[#666] w-[130px] align-top text-right">
+                        {item.label}:
+                      </td>
+                      <td className="py-[4px] px-[8px] text-[#333]">
+                        {item.value}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+
+              {/* Experience timeline - only in professional tab */}
+              {activeTab === "professional" && (
+                <>
+                  <div className="border-t border-[#C3D1E0]" />
+                  <div className="px-[10px] py-[6px]">
+                    <h3 className="text-[11px] font-bold text-[#315B9E] mb-[4px]">{t("profile.experience")}</h3>
+                  </div>
+                  <div className="divide-y divide-[#E8E8E8]">
+                    {experience.map((exp, i) => (
+                      <div
+                        key={exp.company + exp.period[locale]}
+                        className={`flex gap-[8px] p-[8px] ${
+                          i % 2 === 0 ? "bg-[#F4F7FC]" : "bg-white"
+                        }`}
+                      >
+                        <div className="w-[40px] h-[40px] rounded-[3px] bg-white flex items-center justify-center shrink-0 border border-[#D8DFEA] overflow-hidden">
+                          <img src={exp.icon} alt={exp.company} className="w-[36px] h-[36px] object-contain" />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-baseline gap-[4px] flex-wrap">
+                            <span className="font-bold text-[11px] text-[#315B9E]">
+                              {exp.role[locale]}
+                            </span>
+                            <span className="text-[10px] text-[#999]">
+                              @ {exp.company}
+                            </span>
+                          </div>
+                          <p className="text-[9px] text-[#999] mt-[1px]">
+                            {exp.period[locale]}
+                          </p>
+                          <p className="text-[10px] text-[#333] leading-[1.4] mt-[2px]">
+                            {exp.description[locale]}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
           </>
         }
         right={<QuickStats />}
