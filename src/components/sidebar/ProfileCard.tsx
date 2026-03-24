@@ -30,11 +30,15 @@ export function ProfileCard() {
 
           {/* Name and info */}
           <div className="px-[8px] py-[6px] md:pb-[4px] md:pt-0 flex-1 min-w-0">
-            <h2 className="font-bold text-[14px] md:text-[12px] text-[#315B9E]">Lucas Claros</h2>
+            <h2 className="font-bold text-[14px] md:text-[12px] text-[#315B9E] flex items-center gap-[4px]">
+              Lucas Claros
+              <img src="/images/gifs/waving.gif" alt="Oi!" className="h-[20px] w-auto md:hidden" />
+            </h2>
             <p className="text-[11px] md:text-[10px] text-[#666] mt-[1px]">
               {t("sidebar.male")}, 24
             </p>
             <p className="text-[11px] md:text-[10px] text-[#999]">Catanduva, SP, Brasil</p>
+
           </div>
         </div>
 
@@ -92,6 +96,11 @@ export function ProfileCard() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Sonic */}
+      <div className="px-[8px] py-[4px]">
+        <img src="/images/gifs/sonic.gif" alt="Sonic" className="w-full h-auto" />
       </div>
 
       {/* Download resume */}

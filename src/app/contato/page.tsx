@@ -11,7 +11,7 @@ import { scraps, type Scrap } from "@/data/scraps";
 import { useState, useRef, type ReactNode } from "react";
 
 const PENDING_SCRAPS_KEY = "orkut-pending-scraps";
-const PENDING_TTL_MS = 60 * 60 * 1000; // 1 hour
+const PENDING_TTL_MS = 2 * 60 * 1000; // 2 minutes
 
 interface PendingScrap extends Scrap {
   savedAt: number;
@@ -155,6 +155,7 @@ export default function ContatoPage() {
     <>
       <OrkutNavbar />
       <ThreeColumnLayout
+        hideRightOnMobile
         left={<ProfileCard />}
         center={
           <>
@@ -291,36 +292,6 @@ export default function ContatoPage() {
               )}
             </OrkutCard>
 
-            {/* Or reach me at */}
-            <OrkutCard title={t("contact.orReachMe")}>
-              <div className="space-y-[6px]">
-                <a
-                  href="mailto:lucas.claros11@gmail.com"
-                  className="flex items-center gap-[6px] text-[11px] text-[#315B9E] hover:underline p-[4px] bg-[#F4F7FC] rounded-[3px]"
-                >
-                  <span className="w-[20px] text-center text-[14px] shrink-0">@</span>
-                  lucas.claros11@gmail.com
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/lucas-claros-875945198/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-[6px] text-[11px] text-[#315B9E] hover:underline p-[4px] bg-white rounded-[3px]"
-                >
-                  <span className="w-[20px] text-center text-[14px] font-bold shrink-0">in</span>
-                  LinkedIn
-                </a>
-                <a
-                  href="https://github.com/lucasclaros"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-[6px] text-[11px] text-[#315B9E] hover:underline p-[4px] bg-[#F4F7FC] rounded-[3px]"
-                >
-                  <span className="w-[20px] text-center text-[14px] shrink-0">{"</>"}</span>
-                  GitHub
-                </a>
-              </div>
-            </OrkutCard>
           </>
         }
         right={<QuickStats />}

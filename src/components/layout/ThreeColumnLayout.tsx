@@ -6,12 +6,14 @@ interface ThreeColumnLayoutProps {
   left: React.ReactNode;
   center: React.ReactNode;
   right: React.ReactNode;
+  hideRightOnMobile?: boolean;
 }
 
 export function ThreeColumnLayout({
   left,
   center,
   right,
+  hideRightOnMobile = false,
 }: ThreeColumnLayoutProps) {
   const { t } = useI18n();
 
@@ -26,7 +28,7 @@ export function ThreeColumnLayout({
           <main className="space-y-[8px] min-w-0">{center}</main>
 
           {/* Right sidebar */}
-          <aside className="space-y-[8px]">{right}</aside>
+          <aside className={`space-y-[8px]${hideRightOnMobile ? " hidden md:block" : ""}`}>{right}</aside>
         </div>
       </div>
 

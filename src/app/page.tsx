@@ -29,20 +29,18 @@ export default function LoginPage() {
 
       <div className="max-w-[800px] mx-auto px-4 pt-8">
         {/* Logo */}
-        <div className="mb-6">
-          <h1 className="text-orkut-pink font-bold text-[36px] tracking-tight">
-            orkut
-          </h1>
+        <div className="mb-6 text-center md:text-left">
+          <img src="/images/orkut-logo.png" alt="orkut" className="h-[36px] w-auto inline-block" />
         </div>
 
         {/* Main content - two columns like real Orkut */}
-        <div className="flex flex-col md:flex-row gap-8 items-start">
+        <div className="flex flex-col md:flex-row gap-8 items-center md:items-start">
           {/* Left side - tagline & illustration */}
-          <div className="flex-1">
+          <div className="flex-1 text-center md:text-left">
             <p className="text-[22px] text-orkut-text leading-snug mb-4">
               {t("login.welcome")}
             </p>
-            <div className="w-full max-w-[300px] h-[200px] bg-gradient-to-br from-[#E8F0FE] to-[#D1E1F5] rounded-[8px] flex items-center justify-center">
+            <div className="mx-auto md:mx-0 w-full max-w-[300px] h-[200px] bg-gradient-to-br from-[#E8F0FE] to-[#D1E1F5] rounded-[8px] flex items-center justify-center">
               <div className="text-center">
                 <div className="text-[64px] leading-none mb-2">🌐</div>
                 <p className="text-[11px] text-orkut-text-light italic">

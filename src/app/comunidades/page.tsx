@@ -15,6 +15,7 @@ export default function ComunidadesPage() {
     <>
       <OrkutNavbar />
       <ThreeColumnLayout
+        hideRightOnMobile
         left={<ProfileCard />}
         center={
           <OrkutCard title={`${t("communities.title")} (${communities.length})`}>

@@ -125,7 +125,10 @@ export default function PerfilPage() {
             <div className="bg-white border border-[#C3D1E0] rounded-[5px] overflow-hidden">
               <div className="p-[10px]">
                 {/* Name - hidden on mobile since ProfileCard already shows it */}
-                <h1 className="hidden md:block text-[18px] font-bold text-[#333] mb-[6px]">Lucas Claros</h1>
+                <h1 className="hidden md:flex items-center gap-[6px] text-[18px] font-bold text-[#333] mb-[6px]">
+                  Lucas Claros
+                  <img src="/images/gifs/waving.gif" alt="Oi!" className="h-[24px] w-auto" />
+                </h1>
 
                 {/* Barra de avaliacoes */}
                 <div className="grid grid-cols-3 md:flex md:items-start gap-[12px]">

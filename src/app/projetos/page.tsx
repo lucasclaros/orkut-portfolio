@@ -18,6 +18,7 @@ export default function ProjetosPage() {
     <>
       <OrkutNavbar />
       <ThreeColumnLayout
+        hideRightOnMobile
         left={<ProfileCard />}
         center={
           <OrkutCard title={`${t("nav.projects")} (${albums.length})`}>

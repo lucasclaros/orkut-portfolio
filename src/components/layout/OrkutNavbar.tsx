@@ -75,7 +75,7 @@ export function OrkutNavbar() {
         <div className="md:hidden flex items-center gap-[8px]">
           <button
             onClick={toggleLocale}
-            className="text-white text-[10px] bg-transparent border-none cursor-pointer"
+            className="text-white text-[10px] bg-transparent border-none cursor-pointer hover:underline"
           >
             {otherLocaleLabel}
           </button>

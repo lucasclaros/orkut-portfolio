@@ -15,6 +15,7 @@ export default function DepoimentosPage() {
     <>
       <OrkutNavbar />
       <ThreeColumnLayout
+        hideRightOnMobile
         left={<ProfileCard />}
         center={
           <OrkutCard title={`${t("testimonials.title")} (${testimonials.length})`}>

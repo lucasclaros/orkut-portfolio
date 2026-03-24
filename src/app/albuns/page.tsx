@@ -18,6 +18,7 @@ export default function AlbunsPage() {
     <>
       <OrkutNavbar />
       <ThreeColumnLayout
+        hideRightOnMobile
         left={<ProfileCard />}
         center={
           <OrkutCard title={`${t("albums.title")} (${albums.length})`}>
