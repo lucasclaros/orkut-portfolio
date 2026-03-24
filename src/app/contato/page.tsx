@@ -152,46 +152,11 @@ export default function ContatoPage() {
         left={<ProfileCard />}
         center={
           <>
-            {/* Scraps listing */}
-            <OrkutCard title={`${t("contact.title")} (${allScraps.length})`}>
-              {allScraps.length === 0 ? (
-                <p className="text-[11px] text-[#999] p-[8px]">
-                  {t("contact.noScraps")}
-                </p>
-              ) : (
-                <div className="divide-y divide-[#E8E8E8]">
-                  {allScraps.map((scrap, i) => (
-                    <div
-                      key={scrap.id}
-                      className={`flex gap-[8px] p-[8px] ${
-                        i % 2 === 0 ? "bg-[#F4F7FC]" : "bg-white"
-                      }`}
-                    >
-                      {/* Generic avatar */}
-                      <div className="w-[50px] h-[50px] rounded-[3px] bg-gradient-to-br from-[#E8F0FE] to-[#C5D7F1] flex items-center justify-center shrink-0 border border-[#C3D1E0]">
-                        <span className="text-[20px]">👤</span>
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-center gap-[4px] mb-[2px]">
-                          <span className="font-bold text-[11px] text-[#315B9E]">
-                            {scrap.name}
-                          </span>
-                        </div>
-                        <p className="text-[11px] text-[#333] leading-[1.5]">
-                          {renderEmoticons(scrap.message)}
-                        </p>
-                        <span className="text-[9px] text-[#999] mt-[2px] block">
-                          {scrap.date}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </OrkutCard>
-
             {/* Leave a scrap */}
             <OrkutCard title={t("contact.leaveScrap")}>
+              <div className="flex justify-center pb-[6px]">
+                <img src="/images/gifs/deixe-scrap.gif" alt="Não esqueça do meu scrap" className="h-[130px] w-auto" />
+              </div>
               {status === "sent" ? (
                 <div className="p-[8px] text-center">
                   <img
@@ -281,6 +246,44 @@ export default function ContatoPage() {
                       </span>
                     )}
                   </div>
+                </div>
+              )}
+            </OrkutCard>
+
+            {/* Scraps listing */}
+            <OrkutCard title={`${t("contact.title")} (${allScraps.length})`}>
+              {allScraps.length === 0 ? (
+                <p className="text-[11px] text-[#999] p-[8px]">
+                  {t("contact.noScraps")}
+                </p>
+              ) : (
+                <div className="divide-y divide-[#E8E8E8]">
+                  {allScraps.map((scrap, i) => (
+                    <div
+                      key={scrap.id}
+                      className={`flex gap-[8px] p-[8px] ${
+                        i % 2 === 0 ? "bg-[#F4F7FC]" : "bg-white"
+                      }`}
+                    >
+                      {/* Generic avatar */}
+                      <div className="w-[50px] h-[50px] rounded-[3px] bg-gradient-to-br from-[#E8F0FE] to-[#C5D7F1] flex items-center justify-center shrink-0 border border-[#C3D1E0]">
+                        <span className="text-[20px]">👤</span>
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-[4px] mb-[2px]">
+                          <span className="font-bold text-[11px] text-[#315B9E]">
+                            {scrap.name}
+                          </span>
+                        </div>
+                        <p className="text-[11px] text-[#333] leading-[1.5]">
+                          {renderEmoticons(scrap.message)}
+                        </p>
+                        <span className="text-[9px] text-[#999] mt-[2px] block">
+                          {scrap.date}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               )}
             </OrkutCard>
