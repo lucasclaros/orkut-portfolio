@@ -28,7 +28,7 @@ export const testimonials: Testimonial[] = [
     id: "2",
     name: "Ada ♥ Lovelace [π]",
     role: "First Programmer",
-    photo: "/images/friends/ada-lovelace.png",
+    photo: "/images/friends/ada-lovelace.jpg",
     emoticon: "/images/emoticons/wink.gif",
     quote: {
       "pt-BR":

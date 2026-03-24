@@ -56,7 +56,7 @@ const experience = [
         "Universidade de São Paulo. Algoritmos, estruturas de dados, sistemas operacionais, computação gráfica.",
       en: "University of São Paulo. Algorithms, data structures, operating systems, computer graphics.",
     },
-    icon: "/images/companies/icmc.png",
+    icon: "/images/companies/icmc.jpg",
   },
   {
     role: {

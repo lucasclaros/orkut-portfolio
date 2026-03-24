@@ -33,7 +33,7 @@ export function useVisitorCount() {
 
 export const friends = [
   { name: "Δlαη Tµяιηg.exe 🖥️", photo: "/images/friends/alan-turing.jpg" },
-  { name: "Ada ♥ Lovelace [π]", photo: "/images/friends/ada-lovelace.png" },
+  { name: "Ada ♥ Lovelace [π]", photo: "/images/friends/ada-lovelace.jpg" },
   { name: "LiNuX †ØRvALDs 🐧", photo: "/images/friends/linus-torvalds.jpg" },
   { name: "oOo tααl dØ RØnALdiNhØ gAuChØ ⚽✨", photo: "/images/friends/ronaldinho.jpg" },
   { name: "DiAbO lOiRo 🐷", photo: "/images/friends/paulo-nunes.jpg" },
