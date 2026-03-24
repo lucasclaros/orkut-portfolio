@@ -11,18 +11,11 @@ import { scraps, type Scrap } from "@/data/scraps";
 import { useState, useRef, type ReactNode } from "react";
 
 const PENDING_SCRAPS_KEY = "orkut-pending-scraps";
-const PENDING_TTL_MS = 2 * 60 * 1000; // 2 minutes
 
-interface PendingScrap extends Scrap {
-  savedAt: number;
-}
-
-function getPendingScraps(): PendingScrap[] {
+function getPendingScraps(): Scrap[] {
   if (typeof window === "undefined") return [];
   try {
-    const raw: PendingScrap[] = JSON.parse(localStorage.getItem(PENDING_SCRAPS_KEY) || "[]");
-    const now = Date.now();
-    return raw.filter((s) => now - (s.savedAt ?? 0) < PENDING_TTL_MS);
+    return JSON.parse(localStorage.getItem(PENDING_SCRAPS_KEY) || "[]");
   } catch {
     return [];
   }
@@ -30,7 +23,7 @@ function getPendingScraps(): PendingScrap[] {
 
 function savePendingScrap(scrap: Scrap) {
   const pending = getPendingScraps();
-  pending.push({ ...scrap, savedAt: Date.now() });
+  pending.push(scrap);
   localStorage.setItem(PENDING_SCRAPS_KEY, JSON.stringify(pending));
 }
 
