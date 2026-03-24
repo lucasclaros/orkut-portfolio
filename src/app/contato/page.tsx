@@ -11,11 +11,18 @@ import { scraps, type Scrap } from "@/data/scraps";
 import { useState, useRef, type ReactNode } from "react";
 
 const PENDING_SCRAPS_KEY = "orkut-pending-scraps";
+const PENDING_TTL_MS = 60 * 60 * 1000; // 1 hour
 
-function getPendingScraps(): Scrap[] {
+interface PendingScrap extends Scrap {
+  savedAt: number;
+}
+
+function getPendingScraps(): PendingScrap[] {
   if (typeof window === "undefined") return [];
   try {
-    return JSON.parse(localStorage.getItem(PENDING_SCRAPS_KEY) || "[]");
+    const raw: PendingScrap[] = JSON.parse(localStorage.getItem(PENDING_SCRAPS_KEY) || "[]");
+    const now = Date.now();
+    return raw.filter((s) => now - (s.savedAt ?? 0) < PENDING_TTL_MS);
   } catch {
     return [];
   }
@@ -23,7 +30,7 @@ function getPendingScraps(): Scrap[] {
 
 function savePendingScrap(scrap: Scrap) {
   const pending = getPendingScraps();
-  pending.push(scrap);
+  pending.push({ ...scrap, savedAt: Date.now() });
   localStorage.setItem(PENDING_SCRAPS_KEY, JSON.stringify(pending));
 }
 
@@ -132,7 +139,7 @@ export default function ContatoPage() {
         setStatus("sent");
         setName("");
         setMessage("");
-        setTimeout(() => setStatus("idle"), 3000);
+        setTimeout(() => setStatus("idle"), 4500);
       } else {
         setStatus("error");
       }
@@ -193,14 +200,11 @@ export default function ContatoPage() {
             <OrkutCard title={t("contact.leaveScrap")}>
               {status === "sent" ? (
                 <div className="p-[8px] text-center">
-                  <p className="text-[11px] text-[#2E7D32] font-bold">
-                    {t("contact.scrapSent")}{" "}
-                    <img
-                      src="/images/emoticons/msn-wink.gif"
-                      alt=":wink:"
-                      className="inline-block w-[18px] h-[18px] align-middle"
-                    />
-                  </p>
+                  <img
+                    src="/images/gifs/obrigado-scrap.gif"
+                    alt="Seu scrap deixou meu dia mais feliz! Obrigado(a)!"
+                    className="mx-auto max-w-full h-auto"
+                  />
                 </div>
               ) : (
                 <div className="p-[8px] space-y-[6px]">

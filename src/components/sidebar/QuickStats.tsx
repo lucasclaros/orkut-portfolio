@@ -36,7 +36,7 @@ export const friends = [
   { name: "Ada ♥ Lovelace [π]", photo: "/images/friends/ada-lovelace.png" },
   { name: "LiNuX †ØRvALDs 🐧", photo: "/images/friends/linus-torvalds.jpg" },
   { name: "oOo tααl dØ RØnALdiNhØ gAuChØ ⚽✨", photo: "/images/friends/ronaldinho.jpg" },
-  { name: "Z!ZØu ⚽🏆", photo: "/images/friends/zidane.jpg" },
+  { name: "DiAbO lOiRo 🐷", photo: "/images/friends/paulo-nunes.jpg" },
   { name: "R9 • Ø FєηôмєηØ ⚽🇧🇷", photo: "/images/friends/ronaldo-fenomeno.jpg" },
   { name: "Bob Marley ☮ Jah Bless 🌿🎶", photo: "/images/friends/bob-marley.jpg" },
   { name: "Justin Bieber ✨ baby baby ooo 🎵💜", photo: "/images/friends/justin-bieber.jpg" },

@@ -196,9 +196,6 @@ export default function PerfilPage() {
                 </p>
               </div>
 
-              {/* Divider line */}
-              <div className="border-t border-[#C3D1E0]" />
-
               {/* Tabs: social | professional | personal */}
               <div className="flex gap-[2px] px-[6px] pt-[4px]">
                 {tabs.map((tab) => (
@@ -277,7 +274,9 @@ export default function PerfilPage() {
                   </div>
                 </>
               )}
+
             </div>
+
           </>
         }
         right={<QuickStats />}
