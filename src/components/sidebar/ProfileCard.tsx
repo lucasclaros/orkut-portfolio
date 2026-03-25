@@ -38,6 +38,10 @@ export function ProfileCard() {
               {t("sidebar.male")}, 24
             </p>
             <p className="text-[11px] md:text-[10px] text-[#999]">Catanduva, SP, Brasil</p>
+            <p className="flex items-center gap-[4px] mt-[2px]">
+              <span className="inline-block w-[8px] h-[8px] rounded-full bg-[#4CAF50] shrink-0" />
+              <span className="text-[10px] text-[#666]">{t("sidebar.available")}</span>
+            </p>
 
           </div>
         </div>

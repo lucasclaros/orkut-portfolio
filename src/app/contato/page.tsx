@@ -1,5 +1,10 @@
 "use client";
 
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import "dayjs/locale/pt-br";
+dayjs.extend(relativeTime);
+
 import { useI18n } from "@/i18n";
 import { OrkutNavbar } from "@/components/layout/OrkutNavbar";
 import { ThreeColumnLayout } from "@/components/layout/ThreeColumnLayout";
@@ -83,7 +88,7 @@ function renderEmoticons(text: string): ReactNode[] {
 }
 
 export default function ContatoPage() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -279,7 +284,7 @@ export default function ContatoPage() {
                           {renderEmoticons(scrap.message)}
                         </p>
                         <span className="text-[9px] text-[#999] mt-[2px] block">
-                          {scrap.date}
+                          {dayjs(scrap.date).locale(locale === "pt-BR" ? "pt-br" : "en").fromNow()}
                         </span>
                       </div>
                     </div>
