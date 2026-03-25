@@ -2,34 +2,6 @@
 
 import { useI18n } from "@/i18n";
 import Link from "next/link";
-import { useSyncExternalStore, useEffect } from "react";
-
-function getVisitorCount() {
-  if (typeof window === "undefined") return 0;
-  const stored = localStorage.getItem("orkut-visitors");
-  return stored ? parseInt(stored, 10) : 0;
-}
-
-function incrementOnce() {
-  if (typeof window === "undefined") return;
-  const key = "orkut-visitors-counted";
-  if (sessionStorage.getItem(key)) return;
-  sessionStorage.setItem(key, "1");
-  const count = getVisitorCount() + 1;
-  localStorage.setItem("orkut-visitors", count.toString());
-}
-
-export function useVisitorCount() {
-  useEffect(() => {
-    incrementOnce();
-  }, []);
-
-  return useSyncExternalStore(
-    () => () => {},
-    () => getVisitorCount(),
-    () => 0,
-  );
-}
 
 export const friends = [
   { name: "Δlαη Tµяιηg.exe 🖥️", photo: "/images/friends/alan-turing.jpg" },
@@ -57,8 +29,6 @@ export const communityThumbs = [
 
 export function QuickStats() {
   const { t } = useI18n();
-
-  const visitors = useVisitorCount();
 
   return (
     <>
@@ -137,14 +107,9 @@ export function QuickStats() {
         </div>
       </div>
 
-      {/* Visitor counter */}
-      <div className="bg-white border border-[#C3D1E0] rounded-[5px] p-[8px] text-center">
-        <p className="text-[10px] text-[#666]">
-          <span className="font-bold text-[14px] text-[#315B9E]">
-            {visitors}
-          </span>{" "}
-          {t("sidebar.visitors")}
-        </p>
+      {/* Visitor counter GIF */}
+      <div className="flex justify-center">
+        <img src="/images/gifs/visitor-counter.gif" alt="visitor counter" className="h-auto" />
       </div>
     </>
   );
