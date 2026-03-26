@@ -15,7 +15,7 @@ export function OrkutNavbar() {
   const navItems = [
     { path: "/perfil", label: locale === "pt-BR" ? "início" : "home" },
     { path: "/contato", label: locale === "pt-BR" ? "página de recados" : "scrapbook" },
-    { path: "/projetos", label: t("nav.projects") },
+    { path: "/apps", label: t("nav.apps") },
     { path: "/comunidades", label: t("nav.communities") },
   ];
 

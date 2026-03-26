@@ -6,6 +6,7 @@ import { ThreeColumnLayout } from "@/components/layout/ThreeColumnLayout";
 import { ProfileCard } from "@/components/sidebar/ProfileCard";
 import { QuickStats } from "@/components/sidebar/QuickStats";
 import { OrkutCard } from "@/components/ui/OrkutCard";
+import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { communities } from "@/data/communities";
 
 export default function ComunidadesPage() {
@@ -18,6 +19,11 @@ export default function ComunidadesPage() {
         hideRightOnMobile
         left={<ProfileCard />}
         center={
+          <>
+          <Breadcrumb items={[
+            { label: "início", href: "/perfil" },
+            { label: t("communities.title") },
+          ]} />
           <OrkutCard title={`${t("communities.title")} (${communities.length})`}>
             <div className="divide-y divide-[#E8E8E8]">
               {communities.map((community, i) => (
@@ -71,6 +77,7 @@ export default function ComunidadesPage() {
               ))}
             </div>
           </OrkutCard>
+          </>
         }
         right={<QuickStats />}
       />

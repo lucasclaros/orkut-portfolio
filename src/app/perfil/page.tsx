@@ -6,7 +6,7 @@ import { ThreeColumnLayout } from "@/components/layout/ThreeColumnLayout";
 import { ProfileCard } from "@/components/sidebar/ProfileCard";
 import { QuickStats } from "@/components/sidebar/QuickStats";
 import { scraps } from "@/data/scraps";
-import { albums } from "@/data/albums";
+import { projects } from "@/data/projects";
 import { useState } from "react";
 import Link from "next/link";
 
@@ -141,11 +141,11 @@ export default function PerfilPage() {
                     </div>
                   </Link>
                   {/* projetos */}
-                  <Link href="/projetos" className="no-underline">
+                  <Link href="/apps" className="no-underline">
                     <p className="text-[10px] text-[#535c69]">{t("sidebar.projects")}</p>
                     <div className="flex items-center gap-[3px]">
                       <img src="/images/emoticons/sidebar-videos.png" alt="" className="w-[16px] h-[16px]" />
-                      <span className="text-[12px] text-[#535c69]">{albums.length}</span>
+                      <span className="text-[12px] text-[#535c69]">{projects.length}</span>
                     </div>
                   </Link>
 
