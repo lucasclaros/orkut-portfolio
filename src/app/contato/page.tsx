@@ -12,6 +12,7 @@ import { ProfileCard } from "@/components/sidebar/ProfileCard";
 import { QuickStats } from "@/components/sidebar/QuickStats";
 import { OrkutCard } from "@/components/ui/OrkutCard";
 import { OrkutButton } from "@/components/ui/OrkutButton";
+import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { scraps, type Scrap } from "@/data/scraps";
 import { useState, useRef, type ReactNode } from "react";
 
@@ -157,6 +158,10 @@ export default function ContatoPage() {
         left={<ProfileCard />}
         center={
           <>
+            <Breadcrumb items={[
+              { label: "início", href: "/perfil" },
+              { label: t("contact.title") },
+            ]} />
             {/* Leave a scrap */}
             <OrkutCard title={t("contact.leaveScrap")}>
               <div className="flex justify-center pb-[6px]">

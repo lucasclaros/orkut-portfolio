@@ -10,10 +10,16 @@ const messages = {
       home: "início",
       testimonials: "depoimentos",
       projects: "projetos",
+      apps: "projetos",
       communities: "comunidades",
       scrapbook: "recados",
       albums: "álbuns",
       contact: "contato",
+    },
+    apps: {
+      title: "Apps",
+      installed: "instalado",
+      screenshots: "screenshots",
     },
     login: {
       welcome: "Conecte-se ao orkut.com com a sua conta Lucas Claros",
@@ -138,6 +144,7 @@ const messages = {
       home: "home",
       testimonials: "testimonials",
       projects: "projects",
+      apps: "projects",
       communities: "communities",
       scrapbook: "scrapbook",
       albums: "albums",
@@ -212,6 +219,11 @@ const messages = {
       next: "next →",
       close: "close",
       viewOnGithub: "view on GitHub →",
+    },
+    apps: {
+      title: "Apps",
+      installed: "installed",
+      screenshots: "screenshots",
     },
     contact: {
       title: "scraps",

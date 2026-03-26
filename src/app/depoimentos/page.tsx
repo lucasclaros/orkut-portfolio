@@ -6,6 +6,7 @@ import { ThreeColumnLayout } from "@/components/layout/ThreeColumnLayout";
 import { ProfileCard } from "@/components/sidebar/ProfileCard";
 import { QuickStats } from "@/components/sidebar/QuickStats";
 import { OrkutCard } from "@/components/ui/OrkutCard";
+import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import { testimonials } from "@/data/testimonials";
 
 export default function DepoimentosPage() {
@@ -18,6 +19,11 @@ export default function DepoimentosPage() {
         hideRightOnMobile
         left={<ProfileCard />}
         center={
+          <>
+          <Breadcrumb items={[
+            { label: "início", href: "/perfil" },
+            { label: t("testimonials.title") },
+          ]} />
           <OrkutCard title={`${t("testimonials.title")} (${testimonials.length})`}>
             <div className="divide-y divide-[#E8E8E8]">
               {testimonials.map((testimonial, i) => (
@@ -54,6 +60,7 @@ export default function DepoimentosPage() {
               ))}
             </div>
           </OrkutCard>
+          </>
         }
         right={<QuickStats />}
       />

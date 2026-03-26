@@ -228,6 +228,14 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
 
+    if (url.pathname === "/projetos") {
+      return Response.redirect(new URL("/apps", url).toString(), 301);
+    }
+
+    if (url.pathname === "/albuns") {
+      return Response.redirect(new URL("/apps", url).toString(), 301);
+    }
+
     if (url.pathname === "/api/submit-scrap") {
       return handleSubmitScrap(request, env);
     }

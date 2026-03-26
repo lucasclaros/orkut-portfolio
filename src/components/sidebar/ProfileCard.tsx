@@ -3,15 +3,16 @@
 import { useI18n } from "@/i18n";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { projects } from "@/data/projects";
 
 export function ProfileCard() {
-  const { t } = useI18n();
+  const { t, locale } = useI18n();
   const pathname = usePathname();
 
   const sidebarNav = [
     { path: "/perfil", label: t("sidebar.profile"), icon: "/images/emoticons/sidebar-perfil.png" },
     { path: "/contato", label: t("sidebar.scraps"), icon: "/images/emoticons/sidebar-recados.png" },
-    { path: "/projetos", label: t("sidebar.projects"), icon: "/images/emoticons/sidebar-videos.png" },
+    { path: "/apps", label: t("sidebar.projects"), icon: "/images/emoticons/sidebar-videos.png" },
     { path: "/depoimentos", label: t("sidebar.testimonials"), icon: "/images/emoticons/sidebar-depoimentos.png" },
   ];
 
@@ -79,6 +80,37 @@ export function ProfileCard() {
               </Link>
             );
           })}
+        </div>
+      </div>
+
+      {/* Apps section */}
+      <div className="bg-white border border-[#C3D1E0] rounded-[5px] overflow-hidden mb-[8px]">
+        <div className="flex items-center justify-between px-[8px] py-[4px] border-b border-[#dde9f8] bg-[#eff9ff]">
+          <span className="font-bold text-[11px] text-[#333]">Apps</span>
+          <Link href="/apps" className="text-[9px] text-[#315B9E] no-underline hover:underline">
+            {t("sidebar.more")}
+          </Link>
+        </div>
+        <div className="border border-[#dde9f8] border-t-0">
+          {projects.slice(0, 4).map((project) => (
+            <Link
+              key={project.id}
+              href={`/apps?id=${project.id}`}
+              className="flex items-center gap-[6px] px-[8px] py-[3px] text-[11px] no-underline text-[#535c69] hover:bg-[#e0edfa] border-b border-[#dde9f8] last:border-b-0"
+            >
+              {/* Mini icon */}
+              <div className="w-[16px] h-[16px] rounded-[2px] shrink-0 overflow-hidden border border-[#D8DFEA]">
+                {project.coverImage ? (
+                  <img src={project.coverImage} alt="" className="w-full h-full object-cover" />
+                ) : (
+                  <div className={`w-full h-full bg-gradient-to-br ${project.coverGradient} flex items-center justify-center`}>
+                    <span className="text-[8px] text-white">{project.coverIcon}</span>
+                  </div>
+                )}
+              </div>
+              <span className="truncate text-[11px]">{project.title[locale]}</span>
+            </Link>
+          ))}
         </div>
       </div>
 
